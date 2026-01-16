@@ -19,10 +19,10 @@ public class Movement {
         leftRear = hardwareMap.get(DcMotor.class, "backLeft");
         rightRear = hardwareMap.get(DcMotor.class, "backRight");
 
-//        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 //        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
