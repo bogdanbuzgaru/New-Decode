@@ -49,11 +49,12 @@ public class Shooter {
         if(gamepad.crossWasPressed()){
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
-            index.feed();
         }else if (gamepad.triangleWasPressed()){
             leftShooter.setVelocity(0);
             rightShooter.setVelocity(0);
             index.stop();
+        }else if (gamepad.squareWasPressed()){
+            index.feed();
         }
     }
     public void shoot(){
