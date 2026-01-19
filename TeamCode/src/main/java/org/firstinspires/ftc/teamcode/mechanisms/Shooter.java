@@ -4,11 +4,19 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
+
 public class Shooter {
     private DcMotorEx leftShooter, rightShooter;
     private Hood hood;
     private Index index;
     private int ticksPerSecShoot = 0;
+    public enum State {
+        TAKE,
+        SPIN,
+        SHOOT
+    }
+    private StateMachine<State> fsm = new StateMachine<>(State.TAKE);
     public Shooter(HardwareMap hardwareMap) {
         hood = new Hood(hardwareMap);
         index = new Index(hardwareMap);
@@ -23,19 +31,16 @@ public class Shooter {
 
     }
     public void setTicks(Gamepad gamepad){
-        if(gamepad.dpad_left){
+        if(gamepad.dpadLeftWasPressed()){
             hood.lower();
             ticksPerSecShoot = 1256;
-        }
-        if(gamepad.dpad_down){
+        }else if(gamepad.dpadDownWasPressed()){
             hood.lift();
             ticksPerSecShoot = 1478;
-        }
-        if(gamepad.dpad_right){
+        }else if(gamepad.dpadRightWasPressed()){
             hood.lift();
             ticksPerSecShoot = 1800;
-        }
-        if(gamepad.dpad_up){
+        }else if(gamepad.dpadUpWasPressed()){
             hood.lower();
             ticksPerSecShoot = 1067;
         }
@@ -51,5 +56,9 @@ public class Shooter {
             index.stop();
         }
     }
+    public void shoot(){
+        fsm.onStateEnter(State.TAKE, () -> {
 
+        });
+    }
 }
