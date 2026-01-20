@@ -5,9 +5,174 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RedClose {
+import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
+@Autonomous
+public class RedClose extends OpMode {
+    public enum AutoState {
+        PATH1,
+        PATH2,
+        PATH3,
+        PATH4,
+        PATH5,
+        PATH6,
+        PATH7,
+        PATH8,
+        PATH9,
+        PATH10,
+        PATH11,
+        PATH12,
+        PATH13,
+        PATH14,
+        PATH15,
+        STOP
+    }
+
+    private StateMachine <AutoState> fsm = new StateMachine<>(AutoState.PATH1);
+    private Paths paths;
+    private Follower follower;
+    private ElapsedTime timer = new ElapsedTime();
+    private ElapsedTime pathTimer = new ElapsedTime();
+    private Pose startingPose = new Pose(112.000, 135.000, Math.toRadians(0));
+
+    @Override
+    public void init(){
+        follower.setStartingPose(startingPose);
+        paths = new Paths(follower);
+    }
+    public void start(){
+        timer.reset();
+        fsm.init();
+    }
+    public void loop(){
+
+    }
+    private void setUp() {
+        fsm.onStateEnter(AutoState.PATH1, () -> follower.followPath(paths.Path1));
+        fsm.onStateUpdate(AutoState.PATH1, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH2;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH2, () -> follower.followPath(paths.Path2));
+        fsm.onStateUpdate(AutoState.PATH2, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH3;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH3, () -> follower.followPath(paths.Path3));
+        fsm.onStateUpdate(AutoState.PATH3, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH4;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH4, () -> follower.followPath(paths.Path4));
+        fsm.onStateUpdate(AutoState.PATH4, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH5;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH5, () -> follower.followPath(paths.Path5));
+        fsm.onStateUpdate(AutoState.PATH5, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH6;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH6, () -> follower.followPath(paths.Path6));
+        fsm.onStateUpdate(AutoState.PATH6, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH7;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH7, () -> follower.followPath(paths.Path7));
+        fsm.onStateUpdate(AutoState.PATH7, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH8;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH8, () -> follower.followPath(paths.Path8));
+        fsm.onStateUpdate(AutoState.PATH8, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH9;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH9, () -> follower.followPath(paths.Path9));
+        fsm.onStateUpdate(AutoState.PATH9, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH10;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH10, () -> follower.followPath(paths.Path10));
+        fsm.onStateUpdate(AutoState.PATH10, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH11;
+            }else{
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH11, () -> follower.followPath(paths.Path11));
+        fsm.onStateUpdate(AutoState.PATH11, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH12;
+            } else {
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH12, () -> follower.followPath(paths.Path12));
+        fsm.onStateUpdate(AutoState.PATH12, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH13;
+            } else {
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH13, () -> follower.followPath(paths.Path13));
+        fsm.onStateUpdate(AutoState.PATH13, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH14;
+            } else {
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH14, () -> follower.followPath(paths.Path14));
+        fsm.onStateUpdate(AutoState.PATH14, () -> {
+            if (follower.isBusy()) {
+                return AutoState.PATH15;
+                } else {
+                return null;
+            }
+        });
+        fsm.onStateEnter(AutoState.PATH15, () -> follower.followPath(paths.Path15));
+        fsm.onStateUpdate(AutoState.PATH15, () ->{
+           if (follower.isBusy()) {
+               return AutoState.STOP;
+           }else{
+               return null;
+           }
+        });
+    }
     public static class Paths {
         public PathChain Path1;
         public PathChain Path2;
