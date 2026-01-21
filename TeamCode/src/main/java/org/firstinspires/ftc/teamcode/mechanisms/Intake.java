@@ -28,7 +28,24 @@ public class Intake {
             shooter.lowerBarrier();
         }
     }
-
+    public void autoTake(){
+        intake.setPower(1);
+        index.feed();
+    }
+    public void autoSlowTake(){
+        intake.setPower(0.6);
+        index.slowFeed();
+    }
+    public void autoStop(){
+        intake.setPower(0);
+        shooter.stopIndex();
+        shooter.lowerBarrier();
+    }
+    public void autoShoot(){
+        intake.setPower(1);
+        index.feed();
+        shooter.liftBarrier();
+    }
 //    public void spit(Gamepad gamepad){
 //        if(gamepad.left_bumper && !isShooting){
 //            intake.setPower(-1);

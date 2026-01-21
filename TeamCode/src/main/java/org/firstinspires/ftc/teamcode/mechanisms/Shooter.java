@@ -12,7 +12,7 @@ public class Shooter {
     private Servo barrier;
     private Hood hood;
     private Index index;
-    private int ticksPerSecShoot = 0;
+    private int ticksPerSecShoot = 1130;
     private Lift lift;
     public enum State {
         TAKING,
@@ -57,8 +57,18 @@ public class Shooter {
             lift.lower();
         }
     }
+    public void spinHighRPM(){
+        ticksPerSecShoot = 1800;
+        leftShooter.setVelocity(ticksPerSecShoot);
+        rightShooter.setVelocity(ticksPerSecShoot);
+    }
+    public void spinNormalRPM(){
+        ticksPerSecShoot = 1130;
+        leftShooter.setVelocity(ticksPerSecShoot);
+        rightShooter.setVelocity(ticksPerSecShoot);
+    }
     public void liftBarrier(){
-        barrier.setPosition(0.5);
+        barrier.setPosition(0.4);
         index.feed();
     }
     public void lowerBarrier(){
@@ -75,7 +85,7 @@ public class Shooter {
             leftShooter.setVelocity(0);
             rightShooter.setVelocity(0);
             index.stop();
-            barrier.setPosition(0.5);
+            barrier.setPosition(1);
         }
     }
 }
