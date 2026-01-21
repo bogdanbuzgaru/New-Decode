@@ -18,8 +18,8 @@ public class TeleOp extends OpMode{
     public void loop() {
         movement.movementLoop(gamepad1);
         intake.take(gamepad1);
-        intake.spit(gamepad1);
-        shooter.setTicks(gamepad2);
-        shooter.manualSpin(gamepad2);
+        shooter.setTicks(gamepad1);
+        shooter.manualSpin(gamepad1);
+        shooter.park(gamepad1);
     }
 }

@@ -19,13 +19,13 @@ public class Intake {
             intake.setPower(0);
         }
     }
-    public void spit(Gamepad gamepad){
-        if(gamepad.left_bumper && !isShooting){
-            intake.setPower(-1);
-            isShooting = true;
-        }else if (gamepad.right_bumper && isShooting){
-            intake.setPower(-1);
-            isShooting = false;
-        }
-    }
+//    public void spit(Gamepad gamepad){
+//        if(gamepad.left_bumper && !isShooting){
+//            intake.setPower(-1);
+//            isShooting = true;
+//        }else if (gamepad.right_bumper && isShooting){
+//            intake.setPower(-1);
+//            isShooting = false;
+//        }
+//    }
 }
