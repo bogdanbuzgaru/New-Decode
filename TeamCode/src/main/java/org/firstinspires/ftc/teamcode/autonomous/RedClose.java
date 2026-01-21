@@ -57,7 +57,7 @@ public class RedClose extends OpMode {
     private void setUp() {
         fsm.onStateEnter(AutoState.PATH1, () -> follower.followPath(paths.Path1));
         fsm.onStateUpdate(AutoState.PATH1, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH2;
             }else{
                 return null;
@@ -65,7 +65,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH2, () -> follower.followPath(paths.Path2));
         fsm.onStateUpdate(AutoState.PATH2, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH3;
             }else{
                 return null;
@@ -73,7 +73,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH3, () -> follower.followPath(paths.Path3));
         fsm.onStateUpdate(AutoState.PATH3, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH4;
             }else{
                 return null;
@@ -81,7 +81,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH4, () -> follower.followPath(paths.Path4));
         fsm.onStateUpdate(AutoState.PATH4, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH5;
             }else{
                 return null;
@@ -89,7 +89,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH5, () -> follower.followPath(paths.Path5));
         fsm.onStateUpdate(AutoState.PATH5, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH6;
             }else{
                 return null;
@@ -97,7 +97,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH6, () -> follower.followPath(paths.Path6));
         fsm.onStateUpdate(AutoState.PATH6, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH7;
             }else{
                 return null;
@@ -105,7 +105,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH7, () -> follower.followPath(paths.Path7));
         fsm.onStateUpdate(AutoState.PATH7, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH8;
             }else{
                 return null;
@@ -113,7 +113,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH8, () -> follower.followPath(paths.Path8));
         fsm.onStateUpdate(AutoState.PATH8, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH9;
             }else{
                 return null;
@@ -121,7 +121,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH9, () -> follower.followPath(paths.Path9));
         fsm.onStateUpdate(AutoState.PATH9, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH10;
             }else{
                 return null;
@@ -129,7 +129,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH10, () -> follower.followPath(paths.Path10));
         fsm.onStateUpdate(AutoState.PATH10, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH11;
             }else{
                 return null;
@@ -137,7 +137,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH11, () -> follower.followPath(paths.Path11));
         fsm.onStateUpdate(AutoState.PATH11, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH12;
             } else {
                 return null;
@@ -145,7 +145,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH12, () -> follower.followPath(paths.Path12));
         fsm.onStateUpdate(AutoState.PATH12, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH13;
             } else {
                 return null;
@@ -153,7 +153,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH13, () -> follower.followPath(paths.Path13));
         fsm.onStateUpdate(AutoState.PATH13, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH14;
             } else {
                 return null;
@@ -161,7 +161,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH14, () -> follower.followPath(paths.Path14));
         fsm.onStateUpdate(AutoState.PATH14, () -> {
-            if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                 return AutoState.PATH15;
                 } else {
                 return null;
@@ -169,7 +169,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH15, () -> follower.followPath(paths.Path15));
         fsm.onStateUpdate(AutoState.PATH15, () ->{
-           if (follower.isBusy()) {
+            if (!follower.isBusy()) {
                return AutoState.STOP;
            }else{
                return null;
@@ -218,7 +218,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(95.000, 84.000),
 
-                                    new Pose(128.000, 84.000)
+                                    new Pose(124.000, 84.000)
                             )
                     ).setTangentHeadingInterpolation()
 
@@ -226,7 +226,7 @@ public class RedClose extends OpMode {
 
             Path4 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(128.000, 84.000),
+                                    new Pose(124.000, 84.000),
 
                                     new Pose(85.000, 84.000)
                             )
@@ -248,7 +248,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(95.000, 60.000),
 
-                                    new Pose(127.000, 60.000)
+                                    new Pose(124.000, 60.000)
                             )
                     ).setTangentHeadingInterpolation()
 
@@ -256,9 +256,9 @@ public class RedClose extends OpMode {
 
             Path7 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(127.000, 60.000),
+                                    new Pose(124.000, 60.000),
 
-                                    new Pose(128.000, 72.000)
+                                    new Pose(127.000, 72.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(270))
 
@@ -266,7 +266,7 @@ public class RedClose extends OpMode {
 
             Path8 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(128.000, 72.000),
+                                    new Pose(127.000, 72.000),
 
                                     new Pose(85.000, 84.000)
                             )
@@ -288,7 +288,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(95.000, 36.000),
 
-                                    new Pose(135.000, 36.000)
+                                    new Pose(130.000, 36.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
@@ -296,7 +296,7 @@ public class RedClose extends OpMode {
 
             Path11 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(135.000, 36.000),
+                                    new Pose(130.000, 36.000),
 
                                     new Pose(85.000, 84.000)
                             )
@@ -354,7 +354,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(85.000, 84.000),
 
-                                    new Pose(130.000, 84.000)
+                                    new Pose(120.000, 84.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(43.4), Math.toRadians(270))
 
