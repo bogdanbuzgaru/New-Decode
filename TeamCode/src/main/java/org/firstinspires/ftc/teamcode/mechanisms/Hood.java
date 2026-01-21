@@ -10,9 +10,12 @@ public class Hood {
         hood.setPosition(0);
     }
     public void lift(){
-        hood.setPosition(1);
+        hood.setPosition(0.15);
+    }
+    public void semiLift(){
+        hood.setPosition(0.5);
     }
     public void lower(){
-        hood.setPosition(0);
+        hood.setPosition(1);
     }
 }

@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
 @Autonomous
@@ -37,19 +38,21 @@ public class RedClose extends OpMode {
     private Follower follower;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
-    private Pose startingPose = new Pose(112.000, 135.000, Math.toRadians(0));
 
     @Override
     public void init(){
-        follower.setStartingPose(startingPose);
+        follower = Constants.createFollower(hardwareMap);
+        follower.setStartingPose(new Pose(112.000, 135.000, Math.toRadians(0)));
         paths = new Paths(follower);
+        setUp();
     }
     public void start(){
         timer.reset();
         fsm.init();
     }
     public void loop(){
-
+        follower.update();
+        fsm.update();
     }
     private void setUp() {
         fsm.onStateEnter(AutoState.PATH1, () -> follower.followPath(paths.Path1));

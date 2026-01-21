@@ -7,18 +7,28 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Intake {
     private DcMotorEx intake;
     private boolean isShooting = false;
+    private Shooter shooter;
+    private Index index;
 
     public Intake(HardwareMap hardwareMap){
         intake = hardwareMap.get(DcMotorEx.class, "intake");
+        shooter = new Shooter(hardwareMap);
+        index = new Index (hardwareMap);
     }
     public void take(Gamepad gamepad){
         if(gamepad.right_trigger > 0.0001){
             intake.setPower(gamepad.right_trigger);
-
+            index.feed();
+        }else if(gamepad.left_trigger > 0.2){
+            intake.setPower(gamepad.left_trigger);
+            shooter.liftBarrier();
         }else{
             intake.setPower(0);
+            shooter.stopIndex();
+            shooter.lowerBarrier();
         }
     }
+
 //    public void spit(Gamepad gamepad){
 //        if(gamepad.left_bumper && !isShooting){
 //            intake.setPower(-1);

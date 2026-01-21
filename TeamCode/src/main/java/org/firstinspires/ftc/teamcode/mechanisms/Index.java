@@ -8,8 +8,11 @@ public class Index {
     public Index(HardwareMap hardwareMap) {
         index = hardwareMap.get(DcMotorEx.class, "index");
     }
+    public void slowFeed(){
+        index.setPower(0.6);
+    }
     public void feed(){
-        index.setPower(0.8);
+        index.setPower(1);
     }
     public void stop(){
         index.setPower(0);

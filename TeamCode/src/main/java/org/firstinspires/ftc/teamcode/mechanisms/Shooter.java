@@ -29,6 +29,7 @@ public class Shooter {
         barrier = hardwareMap.get(Servo.class, "barrier");
 
         rightShooter.setDirection(DcMotorEx.Direction.REVERSE);
+        barrier.setDirection(Servo.Direction.REVERSE);
 
         leftShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -39,14 +40,14 @@ public class Shooter {
             hood.lower();
             ticksPerSecShoot = 1256;
         }else if(gamepad.circleWasPressed()){
-            hood.lift();
+            hood.semiLift();
             ticksPerSecShoot = 1478;
         }else if(gamepad.dpadRightWasPressed()){
             hood.lift();
             ticksPerSecShoot = 1800;
         }else if(gamepad.crossWasPressed()){
             hood.lower();
-            ticksPerSecShoot = 1067;
+            ticksPerSecShoot = 1130;
         }
     }
     public void park(Gamepad gamepad){
@@ -56,6 +57,16 @@ public class Shooter {
             lift.lower();
         }
     }
+    public void liftBarrier(){
+        barrier.setPosition(0.5);
+        index.feed();
+    }
+    public void lowerBarrier(){
+        barrier.setPosition(1);
+    }
+    public void stopIndex(){
+        index.stop();
+    }
     public void manualSpin(Gamepad gamepad){
         if(gamepad.leftBumperWasPressed()){
             leftShooter.setVelocity(ticksPerSecShoot);
@@ -64,6 +75,7 @@ public class Shooter {
             leftShooter.setVelocity(0);
             rightShooter.setVelocity(0);
             index.stop();
+            barrier.setPosition(0.5);
         }
     }
 }
