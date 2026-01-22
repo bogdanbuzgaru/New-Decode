@@ -67,7 +67,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH2, () -> follower.followPath(paths.Path2));
+        fsm.onStateEnter(AutoState.PATH2, () ->{
+            follower.followPath(paths.Path2);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH2, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH3;
