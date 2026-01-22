@@ -59,11 +59,13 @@ public class Shooter {
     }
     public void spinHighRPM(){
         ticksPerSecShoot = 1800;
+        hood.lift();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
     }
     public void spinNormalRPM(){
-        ticksPerSecShoot = 1130;
+        ticksPerSecShoot = 1350;
+        hood.semiLift();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
     }

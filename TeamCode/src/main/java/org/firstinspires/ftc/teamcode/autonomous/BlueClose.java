@@ -326,7 +326,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 36.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
                     .build();
 
