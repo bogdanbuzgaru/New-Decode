@@ -44,10 +44,11 @@ public class RedClose extends OpMode {
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(new Pose(112.000, 135.000, Math.toRadians(0)));
         paths = new Paths(follower);
-        setUp();
+
     }
     public void start(){
         timer.reset();
+        setUp();
         fsm.init();
     }
     public void loop(){
@@ -55,7 +56,10 @@ public class RedClose extends OpMode {
         fsm.update();
     }
     private void setUp() {
-        fsm.onStateEnter(AutoState.PATH1, () -> follower.followPath(paths.Path1));
+        fsm.onStateEnter(AutoState.PATH1, () -> {
+            follower.followPath(paths.Path1);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH2;
@@ -71,7 +75,11 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH3, () -> follower.followPath(paths.Path3));
+        fsm.onStateEnter(AutoState.PATH3, () ->{
+            follower.followPath(paths.Path3);
+            return null;
+        });
+
         fsm.onStateUpdate(AutoState.PATH3, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH4;
@@ -79,7 +87,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH4, () -> follower.followPath(paths.Path4));
+        fsm.onStateEnter(AutoState.PATH4, () ->{
+            follower.followPath(paths.Path4);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH4, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH5;
@@ -87,7 +98,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH5, () -> follower.followPath(paths.Path5));
+        fsm.onStateEnter(AutoState.PATH5, () ->{
+            follower.followPath(paths.Path5);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH5, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH6;
@@ -95,7 +109,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH6, () -> follower.followPath(paths.Path6));
+        fsm.onStateEnter(AutoState.PATH6, () ->{
+            follower.followPath(paths.Path6);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH6, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH7;
@@ -103,7 +120,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH7, () -> follower.followPath(paths.Path7));
+        fsm.onStateEnter(AutoState.PATH7, () ->{
+            follower.followPath(paths.Path7);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH7, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH8;
@@ -111,15 +131,20 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH8, () -> follower.followPath(paths.Path8));
-        fsm.onStateUpdate(AutoState.PATH8, () -> {
+        fsm.onStateEnter(AutoState.PATH8, () ->{
+            follower.followPath(paths.Path8);
+            return null;
+        });        fsm.onStateUpdate(AutoState.PATH8, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH9;
             }else{
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH9, () -> follower.followPath(paths.Path9));
+        fsm.onStateEnter(AutoState.PATH9, () ->{
+            follower.followPath(paths.Path9);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH9, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH10;
@@ -127,7 +152,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH10, () -> follower.followPath(paths.Path10));
+        fsm.onStateEnter(AutoState.PATH10, () ->{
+            follower.followPath(paths.Path10);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH10, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH11;
@@ -135,7 +163,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH11, () -> follower.followPath(paths.Path11));
+        fsm.onStateEnter(AutoState.PATH11, () ->{
+            follower.followPath(paths.Path11);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH12;
@@ -143,7 +174,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH12, () -> follower.followPath(paths.Path12));
+        fsm.onStateEnter(AutoState.PATH12, () ->{
+            follower.followPath(paths.Path12);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH12, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH13;
@@ -151,7 +185,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH13, () -> follower.followPath(paths.Path13));
+        fsm.onStateEnter(AutoState.PATH13, () ->{
+            follower.followPath(paths.Path13);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH13, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH14;
@@ -159,7 +196,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH14, () -> follower.followPath(paths.Path14));
+        fsm.onStateEnter(AutoState.PATH14, () ->{
+            follower.followPath(paths.Path14);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH14, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH15;
@@ -167,7 +207,10 @@ public class RedClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH15, () -> follower.followPath(paths.Path15));
+        fsm.onStateEnter(AutoState.PATH15, () ->{
+            follower.followPath(paths.Path15);
+            return null;
+        });
         fsm.onStateUpdate(AutoState.PATH15, () ->{
             if (!follower.isBusy()) {
                return AutoState.STOP;
