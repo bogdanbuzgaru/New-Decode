@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.mechanisms.Intake;
+import org.firstinspires.ftc.teamcode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
@@ -38,6 +40,9 @@ public class BlueClose extends OpMode {
     private Follower follower;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
+    private Intake intake;
+    private Shooter shooter;
+    private boolean isShooting = false;;
     private static double angle = 136.6;
 
     @Override
@@ -45,6 +50,8 @@ public class BlueClose extends OpMode {
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(new Pose(32.000, 135.000, Math.toRadians(0)));
         paths = new Paths(follower);
+        intake = new Intake(hardwareMap);
+        shooter = new Shooter(hardwareMap);
         setUp();
     }
     public void start(){
@@ -54,21 +61,35 @@ public class BlueClose extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
+        shooter.spinNormalRPM();
     }
     private void setUp() {
         fsm.onStateEnter(AutoState.PATH1, () -> {
             follower.followPath(paths.Path1);
+            isShooting = false;
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH2;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH2;
+                    }
+                }
+                return null;
             }else{
                 return null;
             }
         });
         fsm.onStateEnter(AutoState.PATH2, () ->{
             follower.followPath(paths.Path2);
+            intake.autoStop();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH2, () -> {
@@ -80,10 +101,12 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH3, () ->{
             follower.followPath(paths.Path3);
+            intake.autoTake();
             return null;
         });
 
         fsm.onStateUpdate(AutoState.PATH3, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH4;
             }else{
@@ -92,11 +115,23 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH4, () ->{
             follower.followPath(paths.Path4);
+            intake.autoSlowTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH4, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH5;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH5;
+                    }
+                }
+                return null;
             }else{
                 return null;
             }
@@ -125,9 +160,11 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH7, () ->{
             follower.followPath(paths.Path7);
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH7, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH8;
             }else{
@@ -137,12 +174,22 @@ public class BlueClose extends OpMode {
         fsm.onStateEnter(AutoState.PATH8, () ->{
             follower.followPath(paths.Path8);
             return null;
-        });        fsm.onStateUpdate(AutoState.PATH8, () -> {
+        });
+        fsm.onStateUpdate(AutoState.PATH8, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH9;
-            }else{
-                return null;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                } else {
+                    intake.autoShoot();
+                    if (pathTimer.milliseconds() > 1000) {
+                        isShooting = false;
+                        return AutoState.PATH9;
+                    }
+                }
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH9, () ->{
             follower.followPath(paths.Path9);
@@ -157,9 +204,11 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH10, () ->{
             follower.followPath(paths.Path10);
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH10, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH11;
             }else{
@@ -171,11 +220,20 @@ public class BlueClose extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH12;
-            } else {
-                return null;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH12;
+                    }
+                }
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH12, () ->{
             follower.followPath(paths.Path12);
@@ -190,9 +248,11 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH13, () ->{
             follower.followPath(paths.Path13);
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH13, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH14;
             } else {
@@ -201,14 +261,24 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH14, () ->{
             follower.followPath(paths.Path14);
+            intake.autoSlowTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH14, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH15;
-            } else {
-                return null;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH15;
+                    }
+                }
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH15, () ->{
             follower.followPath(paths.Path15);

@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.mechanisms.Intake;
+import org.firstinspires.ftc.teamcode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
@@ -37,6 +39,9 @@ public class BlueFar extends OpMode {
     private Follower follower;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
+    private Intake intake;
+    private Shooter shooter;
+    private boolean isShooting = false;;
     private static double angle = 108.78;
 
     @Override
@@ -54,13 +59,16 @@ public class BlueFar extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
+        shooter.spinHighRPM();
     }
     private void setUp() {
-        fsm.onStateEnter(AutoState.PATH1, () -> {
+        fsm.onStateEnter(AutoState.PATH1, () ->{
             follower.followPath(paths.Path1);
+            intake.autoSlowTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH2;
             }else{
@@ -69,21 +77,35 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH2, () -> {
             follower.followPath(paths.Path2);
+            isShooting = false;
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH2, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH3;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH3;
+                    }
+                }
+                return null;
             }else{
                 return null;
             }
         });
         fsm.onStateEnter(AutoState.PATH3, () ->{
             follower.followPath(paths.Path3);
+            intake.autoTake();
             return null;
         });
 
         fsm.onStateUpdate(AutoState.PATH3, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH4;
             }else{
@@ -91,10 +113,12 @@ public class BlueFar extends OpMode {
             }
         });
         fsm.onStateEnter(AutoState.PATH4, () ->{
-            follower.followPath(paths.Path4);
+            follower.followPath(paths.Path5);
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH4, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH5;
             }else{
@@ -103,17 +127,30 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH5, () ->{
             follower.followPath(paths.Path5);
+            intake.autoSlowTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH5, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH6;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH6;
+                    }
+                }
+                return null;
             }else{
                 return null;
             }
         });
         fsm.onStateEnter(AutoState.PATH6, () ->{
             follower.followPath(paths.Path6);
+            intake.autoStop();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH6, () -> {
@@ -125,9 +162,11 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH7, () ->{
             follower.followPath(paths.Path7);
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH7, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH8;
             }else{
@@ -137,12 +176,22 @@ public class BlueFar extends OpMode {
         fsm.onStateEnter(AutoState.PATH8, () ->{
             follower.followPath(paths.Path8);
             return null;
-        });        fsm.onStateUpdate(AutoState.PATH8, () -> {
+        });
+        fsm.onStateUpdate(AutoState.PATH8, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH9;
-            }else{
-                return null;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                } else {
+                    intake.autoShoot();
+                    if (pathTimer.milliseconds() > 1000) {
+                        isShooting = false;
+                        return AutoState.PATH9;
+                    }
+                }
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH9, () ->{
             follower.followPath(paths.Path9);
@@ -157,9 +206,11 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH10, () ->{
             follower.followPath(paths.Path10);
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH10, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH11;
             }else{
@@ -171,11 +222,20 @@ public class BlueFar extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH12;
-            } else {
-                return null;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH12;
+                    }
+                }
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH12, () ->{
             follower.followPath(paths.Path12);
@@ -190,9 +250,11 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH13, () ->{
             follower.followPath(paths.Path13);
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH13, () -> {
+            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH14;
             } else {
@@ -201,14 +263,24 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH14, () ->{
             follower.followPath(paths.Path14);
+            intake.autoSlowTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH14, () -> {
+            intake.autoSlowTake();
             if (!follower.isBusy()) {
-                return AutoState.PATH15;
-            } else {
-                return null;
+                if (!isShooting) {
+                    pathTimer.reset();
+                    isShooting = true;
+                }else{
+                    intake.autoShoot();
+                    if(pathTimer.milliseconds() > 1000){
+                        isShooting = false;
+                        return AutoState.PATH15;
+                    }
+                }
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH15, () ->{
             follower.followPath(paths.Path15);
