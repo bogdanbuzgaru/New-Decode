@@ -89,7 +89,7 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH2, () ->{
             follower.followPath(paths.Path2);
-            intake.autoStop();
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH2, () -> {
@@ -138,6 +138,7 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH5, () ->{
             follower.followPath(paths.Path5);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH5, () -> {
@@ -193,6 +194,7 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH9, () ->{
             follower.followPath(paths.Path9);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH9, () -> {
@@ -237,6 +239,7 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH12, () ->{
             follower.followPath(paths.Path12);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH12, () -> {
@@ -282,6 +285,7 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH15, () ->{
             follower.followPath(paths.Path15);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH15, () ->{

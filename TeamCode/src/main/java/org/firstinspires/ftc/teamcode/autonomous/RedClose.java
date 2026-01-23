@@ -46,7 +46,7 @@ public class RedClose extends OpMode {
     private Shooter shooter;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
-    private static double angle = 48.4;
+    private static double angle = 41.4;
     private boolean isShooting = false;
     private boolean keepLow = true;
 //    private Writer writer;
@@ -95,6 +95,7 @@ public class RedClose extends OpMode {
         fsm.onStateEnter(AutoState.PATH1, () -> {
             follower.followPath(paths.Path1);
             isShooting = false;
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
@@ -111,17 +112,17 @@ public class RedClose extends OpMode {
                         return AutoState.PATH2;
                     }
                 }
-                return null;
-            }else{
-                return null;
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH2, () ->{
             follower.followPath(paths.Path2);
             intake.autoStop();
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH2, () -> {
+
             if (!follower.isBusy()) {
                 return AutoState.PATH3;
             }else{
@@ -167,6 +168,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH5, () ->{
             follower.followPath(paths.Path5);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH5, () -> {
@@ -222,6 +224,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH9, () ->{
             follower.followPath(paths.Path9);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH9, () -> {
@@ -246,6 +249,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH11, () ->{
             follower.followPath(paths.Path11);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
@@ -266,6 +270,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH12, () ->{
             follower.followPath(paths.Path12);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH12, () -> {
@@ -311,6 +316,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH15, () ->{
             follower.followPath(paths.Path15);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH15, () ->{
@@ -385,7 +391,7 @@ public class RedClose extends OpMode {
 
                                     new Pose(95.000, 60.000)
                             )
-                    ).setTangentHeadingInterpolation()
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
                     .build();
 
@@ -395,7 +401,7 @@ public class RedClose extends OpMode {
 
                                     new Pose(124.000, 60.000)
                             )
-                    ).setTangentHeadingInterpolation()
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
                     .build();
 
@@ -453,7 +459,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(85.000, 84.000),
 
-                                    new Pose(130.984, 45.840)
+                                    new Pose(134.984, 45.840)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(290))
 
@@ -461,25 +467,23 @@ public class RedClose extends OpMode {
 
             Path13 = follower.pathBuilder().addPath(
                             new BezierCurve(
-                                    new Pose(130.984, 45.840),
-                                    new Pose(131.070, 44.990),
-                                    new Pose(131.156, 44.139),
-                                    new Pose(131.241, 43.289),
-                                    new Pose(131.327, 42.439),
-                                    new Pose(131.430, 41.419),
-                                    new Pose(131.516, 40.568),
-                                    new Pose(131.602, 39.718),
-                                    new Pose(131.688, 38.868),
-                                    new Pose(131.791, 37.848),
-                                    new Pose(131.877, 36.997),
-                                    new Pose(131.962, 36.147),
-                                    new Pose(132.048, 35.297),
-                                    new Pose(133.000, 31.000),
-                                    new Pose(133.000, 25.000),
-                                    new Pose(133.000, 20.000),
-                                    new Pose(133.000, 15.000),
-                                    new Pose(134.297, 13.020),
-                                    new Pose(134.400, 12.000)
+                                    new Pose(134.984, 45.840),
+                                    new Pose(135.070, 44.990),
+                                    new Pose(135.156, 44.139),
+                                    new Pose(135.241, 43.289),
+                                    new Pose(135.327, 42.439),
+                                    new Pose(135.430, 41.419),
+                                    new Pose(135.516, 40.568),
+                                    new Pose(135.602, 39.718),
+                                    new Pose(135.688, 38.868),
+                                    new Pose(135.791, 37.848),
+                                    new Pose(135.877, 36.997),
+                                    new Pose(135.962, 36.147),
+                                    new Pose(136.048, 35.297),
+                                    new Pose(139.000, 31.000),
+                                    new Pose(139.000, 25.000),
+                                    new Pose(139.000, 20.000),
+                                    new Pose(139.400, 15.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(290), Math.toRadians(270))
 
@@ -487,7 +491,7 @@ public class RedClose extends OpMode {
 
             Path14 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(134.400, 12.000),
+                                    new Pose(139.400, 15.000),
 
                                     new Pose(85.000, 84.000)
                             )
@@ -499,9 +503,9 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(85.000, 84.000),
 
-                                    new Pose(120.000, 84.000)
+                                    new Pose(119.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(270))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
                     .build();
         }
