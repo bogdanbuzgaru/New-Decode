@@ -69,6 +69,12 @@ public class Shooter {
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
     }
+    public void spinLowRPM(){
+        ticksPerSecShoot = 1130;
+        hood.lower();
+        leftShooter.setVelocity(ticksPerSecShoot);
+        rightShooter.setVelocity(ticksPerSecShoot);
+    }
     public void liftBarrier(){
         barrier.setPosition(0.4);
         index.feed();

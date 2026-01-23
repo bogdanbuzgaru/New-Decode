@@ -48,6 +48,7 @@ public class RedClose extends OpMode {
     private ElapsedTime pathTimer = new ElapsedTime();
     private static double angle = 48.4;
     private boolean isShooting = false;
+    private boolean keepLow = true;
 //    private Writer writer;
 
     @Override
@@ -72,7 +73,11 @@ public class RedClose extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
-        shooter.spinNormalRPM();
+        if(keepLow){
+            shooter.spinLowRPM();
+        }else {
+            shooter.spinNormalRPM();
+        }
 //        if(timer.milliseconds() >29889){
 //            try {
 //                writer.write(follower.getPose().toString());
@@ -102,6 +107,7 @@ public class RedClose extends OpMode {
                     intake.autoShoot();
                     if(pathTimer.milliseconds() > 1000){
                         isShooting = false;
+                        keepLow = false;
                         return AutoState.PATH2;
                     }
                 }
