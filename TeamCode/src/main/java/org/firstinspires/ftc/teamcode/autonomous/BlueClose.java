@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.mechanisms.Intake;
-import org.firstinspires.ftc.teamcode.mechanisms.Shooter;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
@@ -44,6 +44,7 @@ public class BlueClose extends OpMode {
     private Shooter shooter;
     private boolean isShooting = false;;
     private static double angle = 136.6;
+    private boolean keepLow = true;
 
     @Override
     public void init(){
@@ -56,17 +57,35 @@ public class BlueClose extends OpMode {
     }
     public void start(){
         timer.reset();
+        setUp();
         fsm.init();
     }
     public void loop(){
         follower.update();
         fsm.update();
-        shooter.spinNormalRPM();
+        if(keepLow){
+            shooter.spinLowRPM();
+        }else {
+            shooter.spinNormalRPM();
+        }
+//        if(timer.milliseconds() >29889){
+//            try {
+//                writer.write(follower.getPose().toString());
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            try {
+//                writer.flush();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
     private void setUp() {
         fsm.onStateEnter(AutoState.PATH1, () -> {
             follower.followPath(paths.Path1);
             isShooting = false;
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
@@ -79,20 +98,21 @@ public class BlueClose extends OpMode {
                     intake.autoShoot();
                     if(pathTimer.milliseconds() > 1000){
                         isShooting = false;
+                        keepLow = false;
                         return AutoState.PATH2;
                     }
                 }
-                return null;
-            }else{
-                return null;
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH2, () ->{
             follower.followPath(paths.Path2);
+            intake.autoStop();
             shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH2, () -> {
+
             if (!follower.isBusy()) {
                 return AutoState.PATH3;
             }else{
@@ -219,6 +239,7 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH11, () ->{
             follower.followPath(paths.Path11);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
@@ -452,9 +473,7 @@ public class BlueClose extends OpMode {
                                     new Pose(11.000, 31.000),
                                     new Pose(11.000, 25.000),
                                     new Pose(11.000, 20.000),
-                                    new Pose(11.000, 15.000),
-                                    new Pose(9.703, 13.020),
-                                    new Pose(9.600, 12.000)
+                                    new Pose(11.000, 15.000)
 
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(270))
@@ -463,7 +482,7 @@ public class BlueClose extends OpMode {
 
             Path14 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(9.600, 12.000),
+                                    new Pose(11.000, 15.000),
 
                                     new Pose(59.000, 84.000)
                             )
