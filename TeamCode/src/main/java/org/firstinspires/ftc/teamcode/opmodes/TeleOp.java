@@ -28,7 +28,7 @@ public class TeleOp extends OpMode{
     }
     public void loop() {
 //        pose = follower.getPose();
-//        if(pose.getHeading() > 280){
+//        if(pose.getHeading() > 180){
 //            heading = 360 - pose.getHeading();
 //        } else{
 //            heading = pose.getHeading();

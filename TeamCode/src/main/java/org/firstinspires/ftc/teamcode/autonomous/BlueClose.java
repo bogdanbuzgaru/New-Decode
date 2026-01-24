@@ -43,7 +43,7 @@ public class BlueClose extends OpMode {
     private Intake intake;
     private Shooter shooter;
     private boolean isShooting = false;;
-    private static double angle = 136.6;
+    private static double angle = 138.6;
     private boolean keepLow = true;
 
     @Override

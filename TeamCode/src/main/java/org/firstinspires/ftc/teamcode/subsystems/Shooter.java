@@ -39,15 +39,23 @@ public class Shooter {
         if(gamepad.dpadLeftWasPressed()){
             hood.lower();
             ticksPerSecShoot = 1256;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
         }else if(gamepad.circleWasPressed()){
             hood.semiLift();
             ticksPerSecShoot = 1478;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
         }else if(gamepad.dpadRightWasPressed()){
             hood.lift();
             ticksPerSecShoot = 1800;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
         }else if(gamepad.crossWasPressed()){
             hood.lower();
             ticksPerSecShoot = 1130;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
         }
     }
     public void park(Gamepad gamepad){

@@ -42,18 +42,19 @@ public class BlueFar extends OpMode {
     private Intake intake;
     private Shooter shooter;
     private boolean isShooting = false;;
-    private static double angle = 108.78;
+    private static double angle = 111.28;
 
     @Override
     public void init(){
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(new Pose(112.000, 135.000, Math.toRadians(0)));
         paths = new Paths(follower);
-
+        intake = new Intake (hardwareMap);
+        shooter = new Shooter(hardwareMap);
+        setUp();
     }
     public void start(){
         timer.reset();
-        setUp();
         fsm.init();
     }
     public void loop(){
@@ -62,9 +63,10 @@ public class BlueFar extends OpMode {
         shooter.spinHighRPM();
     }
     private void setUp() {
-        fsm.onStateEnter(AutoState.PATH1, () ->{
+        fsm.onStateEnter(AutoState.PATH1, () -> {
             follower.followPath(paths.Path1);
             intake.autoSlowTake();
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
@@ -87,8 +89,9 @@ public class BlueFar extends OpMode {
                     pathTimer.reset();
                     isShooting = true;
                 }else{
-                    intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
+                    if(pathTimer.milliseconds() > 2000)
+                        intake.autoShoot();
+                    if(pathTimer.milliseconds() > 3000){
                         isShooting = false;
                         return AutoState.PATH3;
                     }
@@ -106,6 +109,7 @@ public class BlueFar extends OpMode {
 
         fsm.onStateUpdate(AutoState.PATH3, () -> {
             intake.autoTake();
+            shooter.lowerBarrier();
             if (!follower.isBusy()) {
                 return AutoState.PATH4;
             }else{
@@ -113,7 +117,7 @@ public class BlueFar extends OpMode {
             }
         });
         fsm.onStateEnter(AutoState.PATH4, () ->{
-            follower.followPath(paths.Path5);
+            follower.followPath(paths.Path4);
             intake.autoTake();
             return null;
         });
@@ -151,6 +155,7 @@ public class BlueFar extends OpMode {
         fsm.onStateEnter(AutoState.PATH6, () ->{
             follower.followPath(paths.Path6);
             intake.autoStop();
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH6, () -> {
@@ -195,6 +200,7 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH9, () ->{
             follower.followPath(paths.Path9);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH9, () -> {
@@ -239,6 +245,7 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH12, () ->{
             follower.followPath(paths.Path12);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH12, () -> {
@@ -284,6 +291,7 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH15, () ->{
             follower.followPath(paths.Path15);
+            shooter.lowerBarrier();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH15, () ->{
