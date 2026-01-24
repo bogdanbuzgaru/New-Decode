@@ -346,7 +346,7 @@ public class BlueFar extends OpMode {
 
                             new Pose(35.000, 10.650)
                     )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -356,7 +356,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(15.000, 8.900)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 
@@ -366,7 +366,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(60.872, 18.847)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
             Path6 = follower.pathBuilder().addPath(
@@ -375,7 +375,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(35.000, 10.650)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -385,7 +385,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(15.000, 8.900)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 
@@ -395,7 +395,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(60.872, 18.847)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
             Path9 = follower.pathBuilder().addPath(
@@ -404,7 +404,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(35.000, 10.650)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -414,7 +414,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(15.000, 8.900)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 
@@ -424,7 +424,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(60.872, 18.847)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
             Path12 = follower.pathBuilder().addPath(
@@ -433,7 +433,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(35.000, 10.650)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -443,7 +443,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(15.000, 8.900)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 
@@ -453,7 +453,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(60.872, 18.847)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
 
@@ -463,7 +463,7 @@ public class BlueFar extends OpMode {
 
                                     new Pose(35.000, 10.650)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
         }

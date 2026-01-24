@@ -78,8 +78,8 @@ public class Shooter {
         rightShooter.setVelocity(ticksPerSecShoot);
     }
     public void spinLowRPM(){
-        ticksPerSecShoot = 1180;
-        hood.semiLift();
+        ticksPerSecShoot = 930;
+        hood.lower();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
     }

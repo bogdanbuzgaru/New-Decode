@@ -49,7 +49,7 @@ public class BlueClose extends OpMode {
     @Override
     public void init(){
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(32.000, 135.000, Math.toRadians(0)));
+        follower.setStartingPose(new Pose(32.000, 135.000, Math.toRadians(180)));
         paths = new Paths(follower);
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
@@ -341,7 +341,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(35.000, 108.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
 
@@ -351,7 +351,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -371,7 +371,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(59.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
 
@@ -401,7 +401,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(17.000, 72.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(270))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
 
                     .build();
 
@@ -421,7 +421,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 36.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -431,7 +431,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(14.000, 36.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 
@@ -441,7 +441,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(59.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
 
@@ -496,7 +496,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(24.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(270))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
         }
