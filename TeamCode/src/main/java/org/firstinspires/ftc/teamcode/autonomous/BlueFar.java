@@ -47,7 +47,7 @@ public class BlueFar extends OpMode {
     @Override
     public void init(){
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(112.000, 135.000, Math.toRadians(0)));
+        follower.setStartingPose(new Pose(56.000, 8.200, Math.toRadians(0)));
         paths = new Paths(follower);
         intake = new Intake (hardwareMap);
         shooter = new Shooter(hardwareMap);
