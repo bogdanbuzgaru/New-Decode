@@ -42,12 +42,12 @@ public class BlueFar extends OpMode {
     private Intake intake;
     private Shooter shooter;
     private boolean isShooting = false;;
-    private static double angle = 111.28;
+    private static double angle = 114.28;
 
     @Override
     public void init(){
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(56.000, 8.200, Math.toRadians(0)));
+        follower.setStartingPose(new Pose(56.000, 8.200, Math.toRadians(90)));
         paths = new Paths(follower);
         intake = new Intake (hardwareMap);
         shooter = new Shooter(hardwareMap);
@@ -83,7 +83,7 @@ public class BlueFar extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH2, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -131,11 +131,11 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH5, () ->{
             follower.followPath(paths.Path5);
-            intake.autoSlowTake();
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH5, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -183,7 +183,7 @@ public class BlueFar extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH8, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -228,7 +228,7 @@ public class BlueFar extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -270,7 +270,7 @@ public class BlueFar extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH14, () ->{
             follower.followPath(paths.Path14);
-            intake.autoSlowTake();
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH14, () -> {
@@ -334,7 +334,7 @@ public class BlueFar extends OpMode {
                             new BezierLine(
                                     new Pose(52.172, 12.960),
 
-                                    new Pose(60.872, 18.847)
+                                    new Pose(60.872, 20.847)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(angle))
 
@@ -344,7 +344,7 @@ public class BlueFar extends OpMode {
                     new BezierLine(
                             new Pose(60.872, 18.847),
 
-                            new Pose(35.000, 10.650)
+                            new Pose(35.000, 20.650)
                     )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
@@ -354,7 +354,7 @@ public class BlueFar extends OpMode {
                             new BezierLine(
                                     new Pose(35.000, 10.650),
 
-                                    new Pose(15.000, 8.900)
+                                    new Pose(25.000, 19.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
@@ -362,7 +362,7 @@ public class BlueFar extends OpMode {
 
             Path5 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(15.000, 8.900),
+                                    new Pose(25.000, 19.900),
 
                                     new Pose(60.872, 18.847)
                             )
@@ -371,9 +371,9 @@ public class BlueFar extends OpMode {
                     .build();
             Path6 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(60.872, 18.847),
+                                    new Pose(60.872, 20.847),
 
-                                    new Pose(35.000, 10.650)
+                                    new Pose(35.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
@@ -381,9 +381,9 @@ public class BlueFar extends OpMode {
 
             Path7 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(35.000, 10.650),
+                                    new Pose(35.000, 20.650),
 
-                                    new Pose(15.000, 8.900)
+                                    new Pose(25.000, 19.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
@@ -391,7 +391,7 @@ public class BlueFar extends OpMode {
 
             Path8 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(15.000, 8.900),
+                                    new Pose(25.000, 19.900),
 
                                     new Pose(60.872, 18.847)
                             )
@@ -402,7 +402,7 @@ public class BlueFar extends OpMode {
                             new BezierLine(
                                     new Pose(60.872, 18.847),
 
-                                    new Pose(35.000, 10.650)
+                                    new Pose(35.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
@@ -410,9 +410,9 @@ public class BlueFar extends OpMode {
 
             Path10 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(35.000, 10.650),
+                                    new Pose(35.000, 20.650),
 
-                                    new Pose(15.000, 8.900)
+                                    new Pose(25.000, 19.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
@@ -420,18 +420,18 @@ public class BlueFar extends OpMode {
 
             Path11 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(15.000, 8.900),
+                                    new Pose(25.000, 19.900),
 
-                                    new Pose(60.872, 18.847)
+                                    new Pose(60.872, 20.847)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
             Path12 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(60.872, 18.847),
+                                    new Pose(60.872, 20.847),
 
-                                    new Pose(35.000, 10.650)
+                                    new Pose(35.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
@@ -439,9 +439,9 @@ public class BlueFar extends OpMode {
 
             Path13 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(35.000, 10.650),
+                                    new Pose(35.000, 20.650),
 
-                                    new Pose(15.000, 8.900)
+                                    new Pose(25.000, 19.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
@@ -449,9 +449,9 @@ public class BlueFar extends OpMode {
 
             Path14 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(15.000, 8.900),
+                                    new Pose(25.000, 19.900),
 
-                                    new Pose(60.872, 18.847)
+                                    new Pose(60.872, 20.847)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
@@ -459,9 +459,9 @@ public class BlueFar extends OpMode {
 
             Path15 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(60.872, 18.847),
+                                    new Pose(60.872, 20.847),
 
-                                    new Pose(35.000, 10.650)
+                                    new Pose(35.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 

@@ -59,12 +59,13 @@ public class RedClose extends OpMode {
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-
+        shooter.lowerBarrier();
     }
     public void start(){
         timer.reset();
         setUp();
         fsm.init();
+        shooter.lowerBarrier();
     }
     public void loop(){
         follower.update();
@@ -95,19 +96,21 @@ public class RedClose extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
                     isShooting = true;
-                }else{
-                    intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
+                } else {
+                    if (pathTimer.milliseconds() > 1500)
+                        intake.autoShoot();
+                    if (pathTimer.milliseconds() > 2400) {
                         isShooting = false;
                         keepLow = false;
                         return AutoState.PATH2;
                     }
                 }
+                return null;
             }
             return null;
         });
@@ -141,11 +144,11 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH4, () ->{
             follower.followPath(paths.Path4);
-            intake.autoSlowTake();
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH4, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -203,7 +206,7 @@ public class RedClose extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH8, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -249,7 +252,7 @@ public class RedClose extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -291,11 +294,11 @@ public class RedClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH14, () ->{
             follower.followPath(paths.Path14);
-            intake.autoSlowTake();
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH14, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -405,7 +408,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(124.000, 60.000),
 
-                                    new Pose(127.000, 72.000)
+                                    new Pose(131.000, 76.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(270))
 
@@ -413,7 +416,7 @@ public class RedClose extends OpMode {
 
             Path8 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(127.000, 72.000),
+                                    new Pose(131.000, 76.000),
 
                                     new Pose(85.000, 84.000)
                             )

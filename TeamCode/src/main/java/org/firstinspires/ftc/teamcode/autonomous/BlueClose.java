@@ -43,7 +43,7 @@ public class BlueClose extends OpMode {
     private Intake intake;
     private Shooter shooter;
     private boolean isShooting = false;;
-    private static double angle = 138.6;
+    private static double angle = 140.8;
     private boolean keepLow = true;
 
     @Override
@@ -54,11 +54,13 @@ public class BlueClose extends OpMode {
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
         setUp();
+        shooter.lowerBarrier();
     }
     public void start(){
         timer.reset();
         setUp();
         fsm.init();
+        shooter.lowerBarrier();
     }
     public void loop(){
         follower.update();
@@ -89,19 +91,21 @@ public class BlueClose extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
                     isShooting = true;
-                }else{
-                    intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
+                } else {
+                    if (pathTimer.milliseconds() > 800)
+                        intake.autoShoot();
+                    if (pathTimer.milliseconds() > 1700) {
                         isShooting = false;
                         keepLow = false;
                         return AutoState.PATH2;
                     }
                 }
+                return null;
             }
             return null;
         });
@@ -135,11 +139,11 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH4, () ->{
             follower.followPath(paths.Path4);
-            intake.autoSlowTake();
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH4, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -197,7 +201,7 @@ public class BlueClose extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH8, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -243,14 +247,14 @@ public class BlueClose extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH11, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
                     isShooting = true;
                 }else{
                     intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
+                    if(pathTimer.milliseconds() > 1100){
                         isShooting = false;
                         return AutoState.PATH12;
                     }
@@ -285,11 +289,11 @@ public class BlueClose extends OpMode {
         });
         fsm.onStateEnter(AutoState.PATH14, () ->{
             follower.followPath(paths.Path14);
-            intake.autoSlowTake();
+            intake.autoTake();
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH14, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -381,7 +385,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 60.000)
                             )
-                    ).setTangentHeadingInterpolation()
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -391,7 +395,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(20.000, 60.000)
                             )
-                    ).setTangentHeadingInterpolation()
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 

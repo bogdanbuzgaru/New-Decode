@@ -50,11 +50,13 @@ public class RedFar extends OpMode {
         paths = new Paths(follower);
         intake = new Intake (hardwareMap);
         shooter = new Shooter (hardwareMap);
+        shooter.lowerBarrier();
         setUp();
     }
     public void start(){
         timer.reset();
         fsm.init();
+        shooter.lowerBarrier();
     }
     public void loop(){
         follower.update();
@@ -70,6 +72,7 @@ public class RedFar extends OpMode {
         });
         fsm.onStateUpdate(AutoState.PATH1, () -> {
             intake.autoSlowTake();
+            shooter.lowerBarrier();
             if (!follower.isBusy()) {
                 return AutoState.PATH2;
             }else{
@@ -88,9 +91,9 @@ public class RedFar extends OpMode {
                     pathTimer.reset();
                     isShooting = true;
                 }else{
-                    if(pathTimer.milliseconds() > 2000)
+                    if(pathTimer.milliseconds() > 14000)
                         intake.autoShoot();
-                    if(pathTimer.milliseconds() > 3000){
+                    if(pathTimer.milliseconds() > 15000){
                         isShooting = false;
                         return AutoState.PATH3;
                     }
@@ -103,6 +106,7 @@ public class RedFar extends OpMode {
         fsm.onStateEnter(AutoState.PATH3, () ->{
             follower.followPath(paths.Path3);
             intake.autoTake();
+            angle -= 1;
             return null;
         });
 
@@ -134,7 +138,7 @@ public class RedFar extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH5, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -167,6 +171,7 @@ public class RedFar extends OpMode {
         fsm.onStateEnter(AutoState.PATH7, () ->{
             follower.followPath(paths.Path7);
             intake.autoTake();
+            angle -= 2;
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH7, () -> {
@@ -182,7 +187,7 @@ public class RedFar extends OpMode {
             return null;
         });
         fsm.onStateUpdate(AutoState.PATH8, () -> {
-            intake.autoSlowTake();
+            intake.autoTake();
             if (!follower.isBusy()) {
                 if (!isShooting) {
                     pathTimer.reset();
@@ -323,7 +328,7 @@ public class RedFar extends OpMode {
                             new BezierLine(
                                     new Pose(88.000, 8.200),
 
-                                    new Pose(81.728, 12.960)
+                                    new Pose(81.728, 10.960)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(90))
 
@@ -331,9 +336,9 @@ public class RedFar extends OpMode {
 
             Path2 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(81.728, 12.960),
+                                    new Pose(81.728, 10.960),
 
-                                    new Pose(83.128, 18.847)
+                                    new Pose(83.128, 17.847)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(angle))
 
@@ -341,9 +346,9 @@ public class RedFar extends OpMode {
 
             Path3 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(83.128, 18.847),
+                                    new Pose(83.128, 17.847),
 
-                                    new Pose(109.000, 17.650)
+                                    new Pose(109.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
@@ -351,9 +356,9 @@ public class RedFar extends OpMode {
 
             Path4 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(109.000, 17.650),
+                                    new Pose(109.000, 20.650),
 
-                                    new Pose(139.000, 15.900)
+                                    new Pose(122.000, 20.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
@@ -361,7 +366,7 @@ public class RedFar extends OpMode {
 
             Path5 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(139.000, 15.900),
+                                    new Pose(122.000, 17.900),
 
                                     new Pose(83.128, 18.847)
                             )
@@ -372,7 +377,7 @@ public class RedFar extends OpMode {
                             new BezierLine(
                                     new Pose(83.128, 18.847),
 
-                                    new Pose(109.000, 15.650)
+                                    new Pose(109.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
@@ -380,9 +385,9 @@ public class RedFar extends OpMode {
 
             Path7 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(109.000, 15.650),
+                                    new Pose(109.000, 20.650),
 
-                                    new Pose(139.000, 14.900)
+                                    new Pose(122.000, 19.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
@@ -390,18 +395,18 @@ public class RedFar extends OpMode {
 
             Path8 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(139.000, 14.900),
+                                    new Pose(122.000, 19.900),
 
-                                    new Pose(83.128, 18.847)
+                                    new Pose(83.128, 19.847)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
                     .build();
             Path9 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(83.128, 18.847),
+                                    new Pose(83.128, 19.847),
 
-                                    new Pose(109.000, 17.650)
+                                    new Pose(109.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
@@ -409,9 +414,9 @@ public class RedFar extends OpMode {
 
             Path10 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(109.000, 17.650),
+                                    new Pose(109.000, 20.650),
 
-                                    new Pose(139.000, 14.900)
+                                    new Pose(122.000, 19.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
@@ -419,18 +424,18 @@ public class RedFar extends OpMode {
 
             Path11 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(139.000, 14.900),
+                                    new Pose(122.000, 19.900),
 
-                                    new Pose(83.128, 18.847)
+                                    new Pose(83.128, 19.847)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
                     .build();
             Path12 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(83.128, 18.847),
+                                    new Pose(83.128, 19.847),
 
-                                    new Pose(109.000, 17.650)
+                                    new Pose(109.000, 20.650)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
@@ -438,9 +443,9 @@ public class RedFar extends OpMode {
 
             Path13 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(109.000, 17.650),
+                                    new Pose(109.000, 20.650),
 
-                                    new Pose(139.000, 15.900)
+                                    new Pose(122.000, 19.900)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
@@ -448,9 +453,9 @@ public class RedFar extends OpMode {
 
             Path14 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(139.000, 15.900),
+                                    new Pose(122.000, 19.900),
 
-                                    new Pose(83.128, 18.847)
+                                    new Pose(83.128, 19.847)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
@@ -458,7 +463,7 @@ public class RedFar extends OpMode {
 
             Path15 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(83.128, 18.847),
+                                    new Pose(83.128, 19.847),
 
                                     new Pose(109.000, 22.650)
                             )
