@@ -42,7 +42,7 @@ public class RedClose extends OpMode {
     private Shooter shooter;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
-    private static double angle = 41.4;
+    private static double angle = 44.4;
     private boolean isShooting = false;
     private boolean keepLow = true;
 //    private Writer writer;
@@ -102,9 +102,9 @@ public class RedClose extends OpMode {
                     pathTimer.reset();
                     isShooting = true;
                 } else {
-                    if (pathTimer.milliseconds() > 1500)
+                    if (pathTimer.milliseconds() > 800)
                         intake.autoShoot();
-                    if (pathTimer.milliseconds() > 2400) {
+                    if (pathTimer.milliseconds() > 1700) {
                         isShooting = false;
                         keepLow = false;
                         return AutoState.PATH2;
@@ -378,7 +378,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(124.000, 84.000),
 
-                                    new Pose(85.000, 84.000)
+                                    new Pose(95.000, 84.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
@@ -386,7 +386,7 @@ public class RedClose extends OpMode {
 
             Path5 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(85.000, 84.000),
+                                    new Pose(95.000, 84.000),
 
                                     new Pose(95.000, 60.000)
                             )
@@ -418,7 +418,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(131.000, 76.000),
 
-                                    new Pose(85.000, 84.000)
+                                    new Pose(95.000, 84.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(270), Math.toRadians(angle))
 
@@ -426,7 +426,7 @@ public class RedClose extends OpMode {
 
             Path9 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(85.000, 84.000),
+                                    new Pose(95.000, 84.000),
 
                                     new Pose(95.000, 36.000)
                             )
@@ -448,7 +448,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(130.000, 36.000),
 
-                                    new Pose(85.000, 84.000)
+                                    new Pose(95.000, 84.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
@@ -456,7 +456,7 @@ public class RedClose extends OpMode {
 
             Path12 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(85.000, 84.000),
+                                    new Pose(95.000, 84.000),
 
                                     new Pose(134.984, 45.840)
                             )
@@ -492,7 +492,7 @@ public class RedClose extends OpMode {
                             new BezierLine(
                                     new Pose(139.400, 15.000),
 
-                                    new Pose(85.000, 84.000)
+                                    new Pose(95.000, 84.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(270), Math.toRadians(angle))
 
@@ -500,7 +500,7 @@ public class RedClose extends OpMode {
 
             Path15 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(85.000, 84.000),
+                                    new Pose(95.000, 84.000),
 
                                     new Pose(119.000, 84.000)
                             )

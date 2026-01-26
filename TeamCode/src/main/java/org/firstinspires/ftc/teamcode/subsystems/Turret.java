@@ -27,7 +27,6 @@
 //        pid.setIntegralLimit(integralLimit);
 //        encoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        encoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-////        encoder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 //    }
 //    public int getCurrentPosition(){
 //        return encoder.getCurrentPosition();
