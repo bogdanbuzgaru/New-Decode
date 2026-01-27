@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
@@ -40,131 +38,57 @@ public class BlueClose extends OpMode {
     private Follower follower;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
-    private Intake intake;
-    private Shooter shooter;
-    private boolean isShooting = false;;
-    private static double angle = 140.8;
-    private boolean keepLow = true;
+    private double angle = 136.6;
 
     @Override
     public void init(){
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(32.000, 135.000, Math.toRadians(180)));
+        follower.setStartingPose(new Pose(32.000, 135.000, Math.toRadians(0)));
         paths = new Paths(follower);
-        intake = new Intake(hardwareMap);
-        shooter = new Shooter(hardwareMap);
         setUp();
-        shooter.lowerBarrier();
     }
     public void start(){
         timer.reset();
-        setUp();
         fsm.init();
-        shooter.lowerBarrier();
     }
     public void loop(){
         follower.update();
         fsm.update();
-        if(keepLow){
-            shooter.spinLowRPM();
-        }else {
-            shooter.spinNormalRPM();
-        }
-//        if(timer.milliseconds() >29889){
-//            try {
-//                writer.write(follower.getPose().toString());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            try {
-//                writer.flush();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
     }
     private void setUp() {
-        fsm.onStateEnter(AutoState.PATH1, () -> {
-            follower.followPath(paths.Path1);
-            isShooting = false;
-            shooter.lowerBarrier();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH1, () -> follower.followPath(paths.Path1));
         fsm.onStateUpdate(AutoState.PATH1, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
-                if (!isShooting) {
-                    pathTimer.reset();
-                    isShooting = true;
-                } else {
-                    if (pathTimer.milliseconds() > 800)
-                        intake.autoShoot();
-                    if (pathTimer.milliseconds() > 1700) {
-                        isShooting = false;
-                        keepLow = false;
-                        return AutoState.PATH2;
-                    }
-                }
+                return AutoState.PATH2;
+            }else{
                 return null;
             }
-            return null;
         });
-        fsm.onStateEnter(AutoState.PATH2, () ->{
-            follower.followPath(paths.Path2);
-            intake.autoStop();
-            shooter.lowerBarrier();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH2, () -> follower.followPath(paths.Path2));
         fsm.onStateUpdate(AutoState.PATH2, () -> {
-
             if (!follower.isBusy()) {
                 return AutoState.PATH3;
             }else{
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH3, () ->{
-            follower.followPath(paths.Path3);
-            intake.autoTake();
-            return null;
-        });
-
+        fsm.onStateEnter(AutoState.PATH3, () -> follower.followPath(paths.Path3));
         fsm.onStateUpdate(AutoState.PATH3, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH4;
             }else{
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH4, () ->{
-            follower.followPath(paths.Path4);
-            intake.autoTake();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH4, () -> follower.followPath(paths.Path4));
         fsm.onStateUpdate(AutoState.PATH4, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
-                if (!isShooting) {
-                    pathTimer.reset();
-                    isShooting = true;
-                }else{
-                    intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
-                        isShooting = false;
-                        return AutoState.PATH5;
-                    }
-                }
-                return null;
+                return AutoState.PATH5;
             }else{
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH5, () ->{
-            follower.followPath(paths.Path5);
-            shooter.lowerBarrier();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH5, () -> follower.followPath(paths.Path5));
         fsm.onStateUpdate(AutoState.PATH5, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH6;
@@ -172,10 +96,7 @@ public class BlueClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH6, () ->{
-            follower.followPath(paths.Path6);
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH6, () -> follower.followPath(paths.Path6));
         fsm.onStateUpdate(AutoState.PATH6, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH7;
@@ -183,44 +104,23 @@ public class BlueClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH7, () ->{
-            follower.followPath(paths.Path7);
-            intake.autoTake();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH7, () -> follower.followPath(paths.Path7));
         fsm.onStateUpdate(AutoState.PATH7, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH8;
             }else{
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH8, () ->{
-            follower.followPath(paths.Path8);
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH8, () -> follower.followPath(paths.Path8));
         fsm.onStateUpdate(AutoState.PATH8, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
-                if (!isShooting) {
-                    pathTimer.reset();
-                    isShooting = true;
-                } else {
-                    intake.autoShoot();
-                    if (pathTimer.milliseconds() > 1000) {
-                        isShooting = false;
-                        return AutoState.PATH9;
-                    }
-                }
+                return AutoState.PATH9;
+            }else{
+                return null;
             }
-            return null;
         });
-        fsm.onStateEnter(AutoState.PATH9, () ->{
-            follower.followPath(paths.Path9);
-            shooter.lowerBarrier();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH9, () -> follower.followPath(paths.Path9));
         fsm.onStateUpdate(AutoState.PATH9, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH10;
@@ -228,45 +128,23 @@ public class BlueClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH10, () ->{
-            follower.followPath(paths.Path10);
-            intake.autoTake();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH10, () -> follower.followPath(paths.Path10));
         fsm.onStateUpdate(AutoState.PATH10, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH11;
             }else{
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH11, () ->{
-            follower.followPath(paths.Path11);
-            shooter.lowerBarrier();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH11, () -> follower.followPath(paths.Path11));
         fsm.onStateUpdate(AutoState.PATH11, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
-                if (!isShooting) {
-                    pathTimer.reset();
-                    isShooting = true;
-                }else{
-                    intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1100){
-                        isShooting = false;
-                        return AutoState.PATH12;
-                    }
-                }
+                return AutoState.PATH12;
+            } else {
+                return null;
             }
-            return null;
         });
-        fsm.onStateEnter(AutoState.PATH12, () ->{
-            follower.followPath(paths.Path12);
-            shooter.lowerBarrier();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH12, () -> follower.followPath(paths.Path12));
         fsm.onStateUpdate(AutoState.PATH12, () -> {
             if (!follower.isBusy()) {
                 return AutoState.PATH13;
@@ -274,51 +152,29 @@ public class BlueClose extends OpMode {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH13, () ->{
-            follower.followPath(paths.Path13);
-            intake.autoTake();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH13, () -> follower.followPath(paths.Path13));
         fsm.onStateUpdate(AutoState.PATH13, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
                 return AutoState.PATH14;
             } else {
                 return null;
             }
         });
-        fsm.onStateEnter(AutoState.PATH14, () ->{
-            follower.followPath(paths.Path14);
-            intake.autoTake();
-            return null;
-        });
+        fsm.onStateEnter(AutoState.PATH14, () -> follower.followPath(paths.Path14));
         fsm.onStateUpdate(AutoState.PATH14, () -> {
-            intake.autoTake();
             if (!follower.isBusy()) {
-                if (!isShooting) {
-                    pathTimer.reset();
-                    isShooting = true;
-                }else{
-                    intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
-                        isShooting = false;
-                        return AutoState.PATH15;
-                    }
-                }
-            }
-            return null;
-        });
-        fsm.onStateEnter(AutoState.PATH15, () ->{
-            follower.followPath(paths.Path15);
-            shooter.lowerBarrier();
-            return null;
-        });
-        fsm.onStateUpdate(AutoState.PATH15, () ->{
-            if (!follower.isBusy()) {
-                return AutoState.STOP;
-            }else{
+                return AutoState.PATH15;
+                } else {
                 return null;
             }
+        });
+        fsm.onStateEnter(AutoState.PATH15, () -> follower.followPath(paths.Path15));
+        fsm.onStateUpdate(AutoState.PATH15, () ->{
+            if (!follower.isBusy()) {
+               return AutoState.STOP;
+           }else{
+               return null;
+           }
         });
     }
     public static class Paths {
@@ -345,7 +201,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(35.000, 108.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
                     .build();
 
@@ -355,7 +211,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
 
                     .build();
 
@@ -375,7 +231,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(59.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
                     .build();
 
@@ -385,7 +241,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 60.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
+                    ).setTangentHeadingInterpolation()
 
                     .build();
 
@@ -395,7 +251,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(20.000, 60.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
+                    ).setTangentHeadingInterpolation()
 
                     .build();
 
@@ -405,7 +261,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(17.000, 72.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(270))
 
                     .build();
 
@@ -425,7 +281,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 36.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(angle))
 
                     .build();
 
@@ -435,7 +291,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(14.000, 36.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
                     .build();
 
@@ -445,7 +301,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(59.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
 
                     .build();
 
@@ -477,7 +333,9 @@ public class BlueClose extends OpMode {
                                     new Pose(11.000, 31.000),
                                     new Pose(11.000, 25.000),
                                     new Pose(11.000, 20.000),
-                                    new Pose(11.000, 15.000)
+                                    new Pose(11.000, 15.000),
+                                    new Pose(9.703, 13.020),
+                                    new Pose(9.600, 12.000)
 
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(270))
@@ -486,7 +344,7 @@ public class BlueClose extends OpMode {
 
             Path14 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(11.000, 15.000),
+                                    new Pose(9.600, 12.000),
 
                                     new Pose(59.000, 84.000)
                             )
@@ -500,7 +358,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(24.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(270))
 
                     .build();
         }
