@@ -466,23 +466,23 @@ public class RedClose extends OpMode {
 
             Path13 = follower.pathBuilder().addPath(
                             new BezierCurve(
-                                    new Pose(134.984, 45.840),
-                                    new Pose(135.070, 44.990),
-                                    new Pose(135.156, 44.139),
-                                    new Pose(135.241, 43.289),
-                                    new Pose(135.327, 42.439),
-                                    new Pose(135.430, 41.419),
-                                    new Pose(135.516, 40.568),
-                                    new Pose(135.602, 39.718),
-                                    new Pose(135.688, 38.868),
-                                    new Pose(135.791, 37.848),
-                                    new Pose(135.877, 36.997),
-                                    new Pose(135.962, 36.147),
-                                    new Pose(136.048, 35.297),
-                                    new Pose(139.000, 31.000),
-                                    new Pose(139.000, 25.000),
-                                    new Pose(139.000, 20.000),
-                                    new Pose(139.400, 15.000)
+                                    new Pose(138.984, 45.840),
+                                    new Pose(139.070, 44.990),
+                                    new Pose(139.156, 44.139),
+                                    new Pose(139.241, 43.289),
+                                    new Pose(139.327, 42.439),
+                                    new Pose(139.430, 41.419),
+                                    new Pose(139.516, 40.568),
+                                    new Pose(139.602, 39.718),
+                                    new Pose(139.688, 38.868),
+                                    new Pose(139.791, 37.848),
+                                    new Pose(139.877, 36.997),
+                                    new Pose(139.962, 36.147),
+                                    new Pose(140.048, 35.297),
+                                    new Pose(143.000, 31.000),
+                                    new Pose(143.000, 25.000),
+                                    new Pose(143.000, 20.000),
+                                    new Pose(143.400, 15.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(290), Math.toRadians(270))
 
@@ -490,7 +490,7 @@ public class RedClose extends OpMode {
 
             Path14 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(139.400, 15.000),
+                                    new Pose(143.400, 15.000),
 
                                     new Pose(95.000, 84.000)
                             )

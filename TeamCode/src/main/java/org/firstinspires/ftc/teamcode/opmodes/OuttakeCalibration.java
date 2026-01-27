@@ -15,6 +15,7 @@ public class OuttakeCalibration extends LinearOpMode {
     SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
     PIDController p = new PIDController(kp, 0, 0);
     DcMotorEx motorLeft, motorRight;
+    private double voltagee;
     @Override
     public void runOpMode() throws InterruptedException {
         motorLeft = hardwareMap.get(DcMotorEx.class, "leftShooter");
@@ -23,7 +24,7 @@ public class OuttakeCalibration extends LinearOpMode {
         motorRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
-
+        voltagee = hardwareMap.voltageSensor.iterator().next().getVoltage();
         while (opModeIsActive()) {
 
             if(manual) {
@@ -40,8 +41,8 @@ public class OuttakeCalibration extends LinearOpMode {
             double p_output = p.calculate(vecocity, target);
             double ff_ouput = ff.calculate(target);
 
-            motorRight.setPower(p_output + ff_ouput);
-            motorLeft.setPower(p_output + ff_ouput);
+            motorRight.setPower((p_output + ff_ouput) * (nominalVoltage / voltagee));
+            motorLeft.setPower((p_output + ff_ouput) * (nominalVoltage / voltagee));
 
             telemetry.addData("Velocity", vecocity);
             telemetry.addData("Target", target);

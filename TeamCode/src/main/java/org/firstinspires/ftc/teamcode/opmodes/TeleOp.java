@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.movement.Movement;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.subsystems.Turret;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends OpMode{
@@ -17,7 +18,7 @@ public class TeleOp extends OpMode{
     private Intake intake = null;
     private Follower follower;
     private Pose pose;
-//    private Turret turret;
+    private Turret turret;
     private double heading;
     public void init(){
         follower = Constants.createFollower(hardwareMap);
@@ -25,20 +26,23 @@ public class TeleOp extends OpMode{
         movement = new Movement(hardwareMap);
         shooter = new Shooter(hardwareMap);
         intake = new Intake(hardwareMap);
-//        turret = new Turret(hardwareMap);
+        turret = new Turret(hardwareMap);
     }
     public void loop() {
-//        pose = follower.getPose();
-//        if(pose.getHeading() > 180){
-//            heading = 360 - pose.getHeading();
-//        } else{
-//            heading = pose.getHeading();
-//        }
-//        turret.rotate(pose.getY()/ (pose.getX() - 5) - heading);
+        pose = follower.getPose();
+        if(pose.getHeading() > 180){
+            heading = pose.getHeading() - 360;
+        } else{
+            heading = pose.getHeading();
+        }
+        turret.rotate(Math.atan2(pose.getY(), (pose.getX() - 5)) - heading);
         movement.movementLoop(gamepad1);
+        intake.update();
         intake.take(gamepad1);
         shooter.setTicks(gamepad1);
-        shooter.manualSpin(gamepad1);
-        shooter.park(gamepad1);
+//        to Natie prin educatie
+        shooter.park(gamepad1);//pls give me a spot to nationals
+                //from bogdan
+
     }
 }
