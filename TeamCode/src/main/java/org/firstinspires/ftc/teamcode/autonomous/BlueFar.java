@@ -41,7 +41,7 @@ public class BlueFar extends OpMode {
     private ElapsedTime pathTimer = new ElapsedTime();
     private Intake intake;
     private Shooter shooter;
-    private static double angle = 65.22;
+    private static double angle = 112.58;
     private static boolean isShooting = false;
     public void init(){
         follower = Constants.createFollower(hardwareMap);
@@ -49,6 +49,7 @@ public class BlueFar extends OpMode {
         paths = new Paths(follower);
         intake = new Intake (hardwareMap);
         shooter = new Shooter(hardwareMap);
+        shooter.lowerBarrier();
         setUp();
     }
     public void start(){
@@ -58,6 +59,7 @@ public class BlueFar extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
+        shooter.spinHighRPM();
     }
     private void setUp() {
         fsm.onStateEnter(AutoState.PATH1, () -> {

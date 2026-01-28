@@ -23,9 +23,9 @@ public class TeleOp extends OpMode{
     public void init(){
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(new Pose(119.000, 84.000, Math.toRadians(0)));     //RED CLOSE
-//        follower.setStartingPose(new Pose(24.000, 84.000, Math.toRadians(0)));         //BLUE CLOSE
+//        follower.setStartingPose(new Pose(24.000, 84.000, Math.toRadians(180)));         //BLUE CLOSE
 //        follower.setStartingPose(new Pose(109.000, 22.650, Math.toRadians(0)));         //RED FAR
-//        follower.setStartingPose(new Pose(35.000, 20.650, Math.toRadians(0)));         //BLUE FAR
+//        follower.setStartingPose(new Pose(35.000, 20.650, Math.toRadians(180)));         //BLUE FAR
 
         movement = new Movement(hardwareMap);
         shooter = new Shooter(hardwareMap);
@@ -34,12 +34,10 @@ public class TeleOp extends OpMode{
     }
     public void loop() {
         pose = follower.getPose();
-        if(pose.getHeading() > 180){
-            heading = pose.getHeading() - 360;
-        } else{
-            heading = pose.getHeading();
-        }
-        turret.rotate(Math.atan2(pose.getY(), (pose.getX() - 5)) - heading);
+
+        turret.setHeading(pose.getHeading());
+        turret.rotateRed(pose.getX(), pose.getY());
+//        turret.rotateBlue(pose.getX(), pose.getY());      //TODO change for each alliance
         movement.movementLoop(gamepad1);
         intake.update();
         intake.take(gamepad1);
@@ -47,6 +45,14 @@ public class TeleOp extends OpMode{
 //        to Natie prin educatie
         shooter.park(gamepad1);//pls give me a spot to nationals
                 //from bogdan
-
+        if(gamepad2.leftBumperWasPressed()){
+            turret.goMin();
+        }else if(gamepad2.rightBumperWasPressed()){
+            turret.goMax();
+        }else if (gamepad2.crossWasPressed()){
+            turret.goNeutral();
+        }else if (gamepad2.triangleWasPressed()){
+            turret.follow();
+        }
     }
 }

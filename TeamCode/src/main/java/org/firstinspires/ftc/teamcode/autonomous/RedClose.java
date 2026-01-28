@@ -42,7 +42,7 @@ public class RedClose extends OpMode {
     private Shooter shooter;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
-    private static double angle = 44.4;
+    private static double angle = 41.8;
     private boolean isShooting = false;
     private boolean keepLow = true;
 //    private Writer writer;

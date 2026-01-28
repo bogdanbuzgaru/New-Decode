@@ -77,7 +77,7 @@ public class Shooter {
         }
     }
     public void spinHighRPM(){
-        ticksPerSecShoot = 1720;
+        ticksPerSecShoot = 1760;
         hood.lift();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
@@ -89,7 +89,7 @@ public class Shooter {
         rightShooter.setVelocity(ticksPerSecShoot);
     }
     public void spinLowRPM(){
-        ticksPerSecShoot = 1100;
+        ticksPerSecShoot = 960;
         hood.lower();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
