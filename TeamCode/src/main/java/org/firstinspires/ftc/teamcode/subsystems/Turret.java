@@ -17,14 +17,14 @@ public class Turret {
             isNegative = false;
         }
         if(!isNegative && Math.abs(angle) < 90){
-            turretServo1.setPosition(0.5 * angle);
-            turretServo2.setPosition(0.5 * angle);
+            turretServo1.setPosition(0.5 * angle / 90);
+            turretServo2.setPosition(0.5 * angle / 90);
         }else if (isNegative && Math.abs(angle) < 90){
-            turretServo1.setPosition(0.5 * angle + 0.5);
-            turretServo2.setPosition(0.5 * angle + 0.5);
+            turretServo1.setPosition(0.5 * angle / 90 + 0.5);
+            turretServo2.setPosition(0.5 * angle / 90 + 0.5);
         }else{
-            turretServo1.setPosition(0.5 * angle + 0.5);
-            turretServo2.setPosition(0.5 * angle + 0.5);
+            turretServo1.setPosition(0.5);
+            turretServo2.setPosition(0.5);
         }
     }
 }

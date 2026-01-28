@@ -38,7 +38,7 @@ public class BlueClose extends OpMode {
     private Follower follower;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
-    private double angle = 136.6;
+    private static double angle = 136.6;
 
     @Override
     public void init(){

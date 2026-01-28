@@ -36,10 +36,15 @@ public class Limelight {
                     String className = detection.getString("class");
                     double confidence = detection.getDouble("conf");  // 0-1, e.g., >0.8 for "really sure"
 
-                    if (className.equals("YourTrainedClassName") && confidence > 0.75) {  // Adjust threshold based on your model
+                    if (className.equals("green artifact") && confidence > 0.75) {  // Adjust threshold based on your model
                         detected = true;
                         // Optional: Add telemetry here if needed for debugging
                          telemetry.addData("Detection", "Correct: " + className + " (Conf: " + confidence + ")");
+                        break;  // Exit loop once a match is found (or remove if you need to check all)
+                    }else if (className.equals("purple artifact") && confidence > 0.75) {  // Adjust threshold based on your model
+                        detected = true;
+                        // Optional: Add telemetry here if needed for debugging
+                        telemetry.addData("Detection", "Correct: " + className + " (Conf: " + confidence + ")");
                         break;  // Exit loop once a match is found (or remove if you need to check all)
                     }
                 }

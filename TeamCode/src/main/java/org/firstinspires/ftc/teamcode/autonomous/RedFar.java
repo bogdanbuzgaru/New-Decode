@@ -91,9 +91,9 @@ public class RedFar extends OpMode {
                     pathTimer.reset();
                     isShooting = true;
                 }else{
-                    if(pathTimer.milliseconds() > 14000)
+                    if(pathTimer.milliseconds() > 2000)
                         intake.autoShoot();
-                    if(pathTimer.milliseconds() > 15000){
+                    if(pathTimer.milliseconds() > 3000){
                         isShooting = false;
                         return AutoState.PATH3;
                     }

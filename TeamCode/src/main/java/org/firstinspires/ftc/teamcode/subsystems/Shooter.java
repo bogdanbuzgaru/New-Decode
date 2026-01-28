@@ -7,10 +7,7 @@ import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
 public class Shooter {
     private DcMotorEx leftShooter, rightShooter;
@@ -28,18 +25,11 @@ public class Shooter {
 
     private int ticksPerSecShoot = 1130;
     private Lift lift;
-    private double P = 20.4;
-    private double F = 0.1;
     private double voltage;
-    public static  double ks = 0.23, kv = 0.000406341, ka = 0, kp = 0.007,  vecocity, nominalVoltage = 10.7;
+    public static  double ks = 0.23, kv = 0.000406341, ka = 0, kp = 0.007, velocity, nominalVoltage = 10.7;
     private boolean increase = false;
-    SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
+//    SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
     PIDController p = new PIDController(kp, 0, 0);
-    public enum State {
-        TAKING,
-        SHOOTING
-    }
-    private StateMachine<State> fsm = new StateMachine<>(State.TAKING);
     public Shooter(HardwareMap hardwareMap) {
         hood = new Hood(hardwareMap);
         index = new Index(hardwareMap);
@@ -51,10 +41,6 @@ public class Shooter {
 
         rightShooter.setDirection(DcMotorEx.Direction.REVERSE);
         barrier.setDirection(Servo.Direction.REVERSE);
-
-        PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
-        leftShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
-        rightShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
 
         leftShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -125,15 +111,14 @@ public class Shooter {
         SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
         p.setPID(kp, 0, 0);
 
-        vecocity = leftShooter.getVelocity();
+        velocity = leftShooter.getVelocity();
 
-
-        double p_output = p.calculate(vecocity, ticksPerSecShoot);
-        double ff_ouput = ff.calculate(ticksPerSecShoot);
+        double p_output = p.calculate(velocity, ticksPerSecShoot);
+        double ff_output = ff.calculate(ticksPerSecShoot);
 
         if(ticksPerSecShoot != 0){
-            rightShooter.setPower((p_output + ff_ouput) * (nominalVoltage / voltage));
-            leftShooter.setPower((p_output + ff_ouput) * (nominalVoltage / voltage));
+            rightShooter.setPower((p_output + ff_output) * (nominalVoltage / voltage));
+            leftShooter.setPower((p_output + ff_output) * (nominalVoltage / voltage));
         }else {
             rightShooter.setPower(0);
             leftShooter.setPower(0);

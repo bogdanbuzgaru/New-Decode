@@ -22,7 +22,11 @@ public class TeleOp extends OpMode{
     private double heading;
     public void init(){
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(119.000, 84.000, Math.toRadians(0)));
+        follower.setStartingPose(new Pose(119.000, 84.000, Math.toRadians(0)));     //RED CLOSE
+//        follower.setStartingPose(new Pose(24.000, 84.000, Math.toRadians(0)));         //BLUE CLOSE
+//        follower.setStartingPose(new Pose(109.000, 22.650, Math.toRadians(0)));         //RED FAR
+//        follower.setStartingPose(new Pose(35.000, 20.650, Math.toRadians(0)));         //BLUE FAR
+
         movement = new Movement(hardwareMap);
         shooter = new Shooter(hardwareMap);
         intake = new Intake(hardwareMap);
