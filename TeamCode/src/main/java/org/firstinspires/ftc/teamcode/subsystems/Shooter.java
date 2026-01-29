@@ -69,6 +69,29 @@ public class Shooter {
             rightShooter.setVelocity(ticksPerSecShoot);
         }
     }
+    public void autoTicks(double dx, double dy){
+        if(dx * dx + dy * dy > 9000){
+            hood.lower();
+            ticksPerSecShoot = 1800;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
+        }else if(dx * dx + dy * dy > 6000){
+            hood.lower();
+            ticksPerSecShoot = 1425;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
+        }else if(dx * dx + dy * dy > 4300){
+            hood.lower();
+            ticksPerSecShoot = 1256;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
+        }else if(dx * dx + dy * dy > 2500){
+            hood.lower();
+            ticksPerSecShoot = 1070;
+            leftShooter.setVelocity(ticksPerSecShoot);
+            rightShooter.setVelocity(ticksPerSecShoot);
+        }
+    }
     public void park(Gamepad gamepad){
         if(gamepad.dpadUpWasPressed()){
             lift.lift();

@@ -30,11 +30,11 @@ public class Turret {
         alpha = angle - heading;
         if(follow) {
             if (isInRangeRed() && alpha > 0) {
-                turretServo1.setPosition(0.5 - 0.5 * alpha / 45);
-                turretServo2.setPosition(0.5 - 0.5 * alpha / 45);
+                turretServo1.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
+                turretServo2.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
             } else if (isInRangeRed() && alpha < 0) {
-                turretServo1.setPosition(0.5 + 0.5 * Math.abs(alpha) / 45);
-                turretServo2.setPosition(0.5 + 0.5 * Math.abs(alpha) / 45);
+                turretServo1.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
+                turretServo2.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
             }
         }else{
             goNeutral();
@@ -45,11 +45,11 @@ public class Turret {
         alpha = angle - heading;
         if(follow) {
             if (isInRangeRed() && alpha > 0) {
-                turretServo1.setPosition(0.5 - 0.5 * alpha / 45);
-                turretServo2.setPosition(0.5 - 0.5 * alpha / 45);
+                turretServo1.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
+                turretServo2.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
             } else if (isInRangeRed() && alpha < 0) {
-                turretServo1.setPosition(0.5 + 0.5 * Math.abs(alpha) / 45);
-                turretServo2.setPosition(0.5 + 0.5 * Math.abs(alpha) / 45);
+                turretServo1.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
+                turretServo2.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
             }
         }else{
             goNeutral();
