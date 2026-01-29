@@ -35,7 +35,7 @@ public class TeleOp extends OpMode{
     public void loop() {
         follower.update();
         pose = follower.getPose();
-        turret.setHeading(pose.getHeading());
+        turret.setHeading(Math.toDegrees(pose.getHeading()));
         turret.rotateRed(pose.getX(), pose.getY());
 //        turret.rotateBlue(pose.getX(), pose.getY());      //TODO change for each alliance
         movement.movementLoop(gamepad1);
