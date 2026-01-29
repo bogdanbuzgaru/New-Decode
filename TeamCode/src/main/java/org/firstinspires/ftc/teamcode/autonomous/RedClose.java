@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import android.os.Environment;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
@@ -79,7 +81,7 @@ public class RedClose extends OpMode {
     @Override
     public void stop() {
         try {
-            Writer writer = new FileWriter("AutoData.txt");
+            Writer writer = new FileWriter(Environment.getDataDirectory().getAbsolutePath() + "/ftc.txt");
             writer.write(follower.getPose().toString());
             writer.flush();
             writer.close();
