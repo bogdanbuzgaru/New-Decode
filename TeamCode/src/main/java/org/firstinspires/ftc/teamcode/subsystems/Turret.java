@@ -33,7 +33,7 @@ public class Turret {
                 turretServo1.setPosition(0.5 - 0.5 * alpha / 90);
                 turretServo2.setPosition(0.5 - 0.5 * alpha / 90);
             } else if (isInRangeRed() && alpha < 0) {
-                turretServo1.setPosition(0.5 - 0.5 * alpha / 90);
+                turretServo1.setPosition(0.5 + 0.5 * alpha / 90);
                 turretServo2.setPosition(0.5 - 0.5 * alpha / 90);
             } else {
                 turretServo1.setPosition(0.5);
@@ -49,7 +49,7 @@ public class Turret {
         if(follow) {
             if (isInRangeRed() && alpha > 0) {
                 turretServo1.setPosition(0.5 - 0.5 * alpha / 90);
-                turretServo2.setPosition(0.5 - 0.5 * alpha / 90);
+                turretServo2.setPosition(0.5 + 0.5 * alpha / 90);
             } else if (isInRangeRed() && alpha < 0) {
                 turretServo1.setPosition(0.5 - 0.5 * alpha / 90);
                 turretServo2.setPosition(0.5 - 0.5 * alpha / 90);
