@@ -57,6 +57,8 @@ public class TeleOp extends OpMode{
         telemetry.addData("Heading", Math.toDegrees(pose.getHeading()));
         telemetry.addData("X", pose.getX());
         telemetry.addData("Y", pose.getY());
+        telemetry.addData("Alpha", turret.alpha);
+        telemetry.addData("Angle", 0.5 - 0.5 * turret.alpha / 102.8571428571429);
         telemetry.update();
     }
 }

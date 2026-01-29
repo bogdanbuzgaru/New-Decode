@@ -8,7 +8,7 @@ public class Turret {
     private boolean isNegative = false;
     private double heading;
     private double angle = 0;
-    private double alpha = 0;
+    public double alpha = 0;
     private boolean follow;
     public void setHeading(double heading) {
         this.heading = heading;
@@ -26,13 +26,13 @@ public class Turret {
         return heading >= 90 && heading <= 180;
     }
     public void rotateRed(double dx, double dy){
-        angle = Math.atan2(144 - dy, 144 - dx);
+        angle = Math.toDegrees(Math.atan((144 - dy) / (144 - dx)));
         alpha = angle - heading;
-        if(follow) {
-            if (isInRangeRed() && alpha > 0) {
+        if(follow && isInRangeRed()) {
+            if (alpha > 0) {
                 turretServo1.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
                 turretServo2.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
-            } else if (isInRangeRed() && alpha < 0) {
+            } else if (alpha < 0) {
                 turretServo1.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
                 turretServo2.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
             }
@@ -41,13 +41,13 @@ public class Turret {
         }
     }
     public void rotateBlue(double dx, double dy){
-        angle = Math.atan2(144 - dy, dx);
+        angle = Math.toDegrees(Math.atan((144 - dy) / dx )) + 90;
         alpha = angle - heading;
-        if(follow) {
-            if (isInRangeRed() && alpha > 0) {
+        if(follow && isInRangeRed()) {
+            if (alpha > 0) {
                 turretServo1.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
                 turretServo2.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
-            } else if (isInRangeRed() && alpha < 0) {
+            } else if (alpha < 0) {
                 turretServo1.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
                 turretServo2.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
             }
