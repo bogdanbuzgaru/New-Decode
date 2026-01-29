@@ -14,6 +14,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+
 @Autonomous
 public class RedClose extends OpMode {
     public enum AutoState {
@@ -54,11 +58,6 @@ public class RedClose extends OpMode {
         paths = new Paths(follower);
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
-//        try {
-//            writer = new FileWriter("AutoData.txt");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         shooter.lowerBarrier();
     }
     public void start(){
@@ -75,18 +74,18 @@ public class RedClose extends OpMode {
         }else {
             shooter.spinNormalRPM();
         }
-//        if(timer.milliseconds() >29889){
-//            try {
-//                writer.write(follower.getPose().toString());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            try {
-//                writer.flush();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+    }
+
+    @Override
+    public void stop() {
+        try {
+            Writer writer = new FileWriter("AutoData.txt");
+            writer.write(follower.getPose().toString());
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     private void setUp() {
         fsm.onStateEnter(AutoState.PATH1, () -> {
