@@ -160,17 +160,18 @@ public class RedClose extends OpMode {
                 if (!isShooting) {
                     pathTimer.reset();
                     isShooting = true;
-                }else{
-                    intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
+                } else {
+                    if (pathTimer.milliseconds() > 800)
+                        intake.autoShoot();
+                    if (pathTimer.milliseconds() > 1700) {
                         isShooting = false;
+                        keepLow = false;
                         return AutoState.PATH5;
                     }
                 }
                 return null;
-            }else{
-                return null;
             }
+            return null;
         });
         fsm.onStateEnter(AutoState.PATH5, () ->{
             follower.followPath(paths.Path5);
@@ -357,7 +358,7 @@ public class RedClose extends OpMode {
 
                                     new Pose(109.000, 108.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle - 3))
 
                     .build();
 
@@ -367,7 +368,7 @@ public class RedClose extends OpMode {
 
                                     new Pose(95.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle - 3), Math.toRadians(0))
 
                     .build();
 

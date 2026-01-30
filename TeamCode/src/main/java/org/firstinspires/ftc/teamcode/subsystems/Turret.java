@@ -10,6 +10,8 @@ public class Turret {
     private double angle = 0;
     public double alpha = 0;
     private boolean follow;
+    private boolean isUpper = false;
+    private int lower = 5;
     public void setHeading(double heading) {
         this.heading = heading;
     }
@@ -26,7 +28,7 @@ public class Turret {
         return heading >= 60 || heading <= -150;
     }
     public void rotateRed(double dx, double dy){
-        angle = Math.toDegrees(Math.atan((134 - dy) / (144 - dx)));
+        angle = Math.toDegrees(Math.atan((137 - dy) / (144 - dx)));
         alpha = angle - heading;
         if(follow && isInRangeRed()) {
             if (alpha > 0) {
@@ -39,7 +41,7 @@ public class Turret {
         }
     }
     public void rotateBlue(double dx, double dy){
-        angle = Math.toDegrees(Math.atan((144 - dy) / dx )) + 90;
+        angle = Math.toDegrees(Math.atan((137 - dy) / dx )) + 90;
         alpha = angle - heading;
         if(follow && isInRangeRed()) {
             if (alpha > 0) {

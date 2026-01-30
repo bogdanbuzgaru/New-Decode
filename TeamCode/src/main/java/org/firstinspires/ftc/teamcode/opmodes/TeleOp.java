@@ -36,12 +36,13 @@ public class TeleOp extends OpMode{
         follower.update();
         pose = follower.getPose();
         turret.setHeading(Math.toDegrees(pose.getHeading()));
-        turret.rotateRed(pose.getX(), pose.getY());
+        turret.rotateBlue(pose.getX(), pose.getY());
 //        turret.rotateBlue(pose.getX(), pose.getY());      //TODO change for each alliance
         movement.movementLoop(gamepad1);
         intake.update();
         intake.take(gamepad1);
         shooter.setTicks(gamepad1);
+//        shooter.autoTicks(pose.getX(), pose.getY());
 //        to Natie prin educatie
         shooter.park(gamepad1);//pls give me a spot to nationals
                 //from bogdan
@@ -53,10 +54,15 @@ public class TeleOp extends OpMode{
             turret.goNeutral();
         }else if (gamepad2.triangleWasPressed()){
             turret.follow();
-        }else if (gamepad2.circleWasPressed()){
+        }
+        if (gamepad2.circleWasPressed()){
             follower.setPose(new Pose(0.000, 0.000, Math.toRadians(0)));
-        }else if (gamepad2.squareWasPressed()){
+        }
+        if (gamepad2.squareWasPressed()){
             follower.setPose(new Pose(144.000, 0.000, Math.toRadians(180)));
+        }
+        if(gamepad2.right_trigger > 0.0001){
+            intake.autoTake();
         }
         telemetry.addData("Heading", Math.toDegrees(pose.getHeading()));
         telemetry.addData("X", pose.getX());

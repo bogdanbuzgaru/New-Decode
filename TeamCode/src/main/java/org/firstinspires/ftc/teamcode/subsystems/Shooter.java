@@ -26,7 +26,7 @@ public class Shooter {
     private int ticksPerSecShoot = 1130;
     private Lift lift;
     private double voltage;
-    public static  double ks = 0.23, kv = 0.000406341, ka = 0, kp = 0.007, velocity, nominalVoltage = 11.25;
+    public static  double ks = 0.23, kv = 0.000406341, ka = 0.1, kp = 0.007, velocity, nominalVoltage = 10.7;
     private boolean increase = false;
 //    SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
     PIDController p = new PIDController(kp, 0, 0);
@@ -64,30 +64,31 @@ public class Shooter {
             rightShooter.setVelocity(ticksPerSecShoot);
         }else if(gamepad.crossWasPressed()){
             hood.lower();
-            ticksPerSecShoot = 1070;
+            ticksPerSecShoot = 1130;
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
         }
     }
     public void autoTicks(double dx, double dy){
-        if(dx * dx + dy * dy > 9000){
-            hood.lower();
+        double distance = (144 - dx) * (144 - dx) + (144 - dy) * (144 - dy);
+        if(distance > 13000){
+            hood.lift();
             ticksPerSecShoot = 1800;
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
-        }else if(dx * dx + dy * dy > 6000){
-            hood.lower();
-            ticksPerSecShoot = 1425;
+        }else if(distance > 6000){
+            hood.semiLift();
+            ticksPerSecShoot = 1380;
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
-        }else if(dx * dx + dy * dy > 4300){
+        }else if(distance > 4300){
             hood.lower();
             ticksPerSecShoot = 1256;
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
-        }else if(dx * dx + dy * dy > 2500){
+        }else if(distance > 150){
             hood.lower();
-            ticksPerSecShoot = 1070;
+            ticksPerSecShoot = 1150;
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
         }
@@ -118,7 +119,7 @@ public class Shooter {
         rightShooter.setVelocity(ticksPerSecShoot);
     }
     public void liftBarrier(){
-        barrier.setPosition(0.4);
+        barrier.setPosition(0.6);
         index.feed();
     }
     public void lowerBarrier(){
@@ -130,6 +131,7 @@ public class Shooter {
 
     public void update() {
         voltage = hardwareMap.voltageSensor.iterator().next().getVoltage();
+        nominalVoltage = voltage - 1.25;
 
         SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
         p.setPID(kp, 0, 0);

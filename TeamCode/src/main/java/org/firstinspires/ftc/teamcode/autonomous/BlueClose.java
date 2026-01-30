@@ -9,12 +9,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
 import org.firstinspires.ftc.teamcode.subsystems.Turret;
-
 
 @Autonomous
 public class BlueClose extends OpMode {
@@ -37,29 +36,29 @@ public class BlueClose extends OpMode {
         STOP
     }
 
-    private StateMachine<AutoState> fsm = new StateMachine<>(AutoState.PATH1);
-    private Follower follower;
+    private StateMachine <AutoState> fsm = new StateMachine<>(AutoState.PATH1);
     private Paths paths;
+    private Follower follower;
+    private ElapsedTime timer = new ElapsedTime();
+    private ElapsedTime pathTimer = new ElapsedTime();
     private Intake intake;
     private Shooter shooter;
     private boolean isShooting = false;;
-    private ElapsedTime timer = new ElapsedTime();
-    private ElapsedTime pathTimer = new ElapsedTime();
-    private static double angle = 136.6;
-    private boolean keepLow = true;
+    private static double angle = 140.8;
     private Turret turret;
-//    private Writer writer;
+    private boolean keepLow = true;
 
     @Override
     public void init(){
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(32.000, 135.000, Math.toRadians(0)));
+        follower.setStartingPose(new Pose(32.000, 135.000, Math.toRadians(180)));
         paths = new Paths(follower);
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
         turret = new Turret(hardwareMap);
-        turret.goNeutral();
+        setUp();
         shooter.lowerBarrier();
+        turret.goNeutral();
     }
     public void start(){
         timer.reset();
@@ -260,7 +259,7 @@ public class BlueClose extends OpMode {
                     isShooting = true;
                 }else{
                     intake.autoShoot();
-                    if(pathTimer.milliseconds() > 1000){
+                    if(pathTimer.milliseconds() > 1100){
                         isShooting = false;
                         return AutoState.PATH12;
                     }
@@ -351,7 +350,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(35.000, 108.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
 
@@ -361,7 +360,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -381,7 +380,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(59.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
 
@@ -391,7 +390,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 60.000)
                             )
-                    ).setTangentHeadingInterpolation()
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -401,7 +400,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(20.000, 60.000)
                             )
-                    ).setTangentHeadingInterpolation()
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 
@@ -411,7 +410,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(17.000, 72.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(270))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
 
                     .build();
 
@@ -431,7 +430,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(49.000, 36.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
 
@@ -441,7 +440,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(14.000, 36.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
 
                     .build();
 
@@ -451,7 +450,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(59.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(angle))
+                    ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(angle))
 
                     .build();
 
@@ -483,9 +482,7 @@ public class BlueClose extends OpMode {
                                     new Pose(11.000, 31.000),
                                     new Pose(11.000, 25.000),
                                     new Pose(11.000, 20.000),
-                                    new Pose(11.000, 15.000),
-                                    new Pose(9.703, 13.020),
-                                    new Pose(9.600, 12.000)
+                                    new Pose(11.000, 15.000)
 
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(250), Math.toRadians(270))
@@ -494,7 +491,7 @@ public class BlueClose extends OpMode {
 
             Path14 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(9.600, 12.000),
+                                    new Pose(11.000, 15.000),
 
                                     new Pose(59.000, 84.000)
                             )
@@ -508,7 +505,7 @@ public class BlueClose extends OpMode {
 
                                     new Pose(24.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(270))
+                    ).setLinearHeadingInterpolation(Math.toRadians(angle), Math.toRadians(180))
 
                     .build();
         }
