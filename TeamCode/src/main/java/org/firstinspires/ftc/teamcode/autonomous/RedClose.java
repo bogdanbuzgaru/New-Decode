@@ -15,6 +15,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.statemachine.StateMachine;
+import org.firstinspires.ftc.teamcode.subsystems.Turret;
+
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -82,7 +84,7 @@ public class RedClose extends OpMode {
         }
     }
 
-    @Override
+    /*@Override
     public void stop() {
         try {
             Writer writer = new FileWriter(Environment.getDataDirectory().getAbsolutePath() + "/ftc.txt");
@@ -92,7 +94,7 @@ public class RedClose extends OpMode {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
     private void setUp() {
         fsm.onStateEnter(AutoState.PATH1, () -> {
             follower.followPath(paths.Path1);

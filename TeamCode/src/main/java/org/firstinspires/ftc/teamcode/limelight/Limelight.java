@@ -19,7 +19,7 @@ public class Limelight {
     public boolean isDetecting() {
         boolean detected = false;
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("http://limelight-neuro.local:5807/results").build();  // Fixed port and removed double slash
+        Request request = new Request.Builder().url("http://limelight-neuro.local:5800/results").build();  // Fixed port and removed double slash
 
         try {
             Response response = client.newCall(request).execute();
@@ -38,13 +38,13 @@ public class Limelight {
 
                     if ((className.equals("green artifact") || className.equals("purple artifact")) && confidence > 0.75) {  // Combined check for either class; adjust threshold
                         detected = true;
-                        telemetry.addData("Detection", "Correct: " + className + " (Conf: " + confidence + ")");  // For debugging
+//                        telemetry.addData("Detection", "Correct: " + className + " (Conf: " + confidence + ")");  // For debugging
                         break;  // Exit loop once a match is found
                     }
                 }
             }
         } catch (Exception e) {
-            telemetry.addData("Error", "HTTP fetch failed: " + e.getMessage());  // Log errors for debug
+//            telemetry.addData("Error", "HTTP fetch failed: " + e.getMessage());  // Log errors for debug
             detected = false;  // Return false on any error
         }
 

@@ -26,7 +26,7 @@ public class Shooter {
     private int ticksPerSecShoot = 1130;
     private Lift lift;
     private double voltage;
-    public static  double ks = 0.23, kv = 0.000406341, ka = 0, kp = 0.007, velocity, nominalVoltage = 10.7;
+    public static  double ks = 0.23, kv = 0.000406341, ka = 0, kp = 0.007, velocity, nominalVoltage = 11.25;
     private boolean increase = false;
 //    SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
     PIDController p = new PIDController(kp, 0, 0);
