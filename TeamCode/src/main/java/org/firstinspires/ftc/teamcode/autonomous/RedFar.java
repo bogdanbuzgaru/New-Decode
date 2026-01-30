@@ -42,6 +42,7 @@ public class RedFar extends OpMode {
     private boolean isShooting = false;;
     private ElapsedTime timer = new ElapsedTime();
     private ElapsedTime pathTimer = new ElapsedTime();
+    private Turret turret;
     private static double angle = 68.42;
 
     public void init(){
@@ -50,7 +51,9 @@ public class RedFar extends OpMode {
         paths = new Paths(follower);
         intake = new Intake (hardwareMap);
         shooter = new Shooter (hardwareMap);
+        turret = new Turret(hardwareMap);
         shooter.lowerBarrier();
+        turret.goNeutral();
         setUp();
     }
     public void start(){
@@ -61,6 +64,7 @@ public class RedFar extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
+        turret.goNeutral();
         shooter.spinHighRPM();
     }
     private void setUp() {

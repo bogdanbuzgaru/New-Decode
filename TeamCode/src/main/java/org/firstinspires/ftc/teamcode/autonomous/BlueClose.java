@@ -45,6 +45,7 @@ public class BlueClose extends OpMode {
     private ElapsedTime pathTimer = new ElapsedTime();
     private static double angle = 136.6;
     private boolean keepLow = true;
+    private Turret turret;
 //    private Writer writer;
 
     @Override
@@ -54,6 +55,8 @@ public class BlueClose extends OpMode {
         paths = new Paths(follower);
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
+        turret = new Turret(hardwareMap);
+        turret.goNeutral();
         shooter.lowerBarrier();
     }
     public void start(){
@@ -65,6 +68,7 @@ public class BlueClose extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
+        turret.goNeutral();
         if(keepLow){
             shooter.spinLowRPM();
         }else {

@@ -43,12 +43,16 @@ public class BlueFar extends OpMode {
     private Shooter shooter;
     private static double angle = 112.58;
     private static boolean isShooting = false;
+    private Turret turret;
+
     public void init(){
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(new Pose(56.000, 8.200, Math.toRadians(90)));
         paths = new Paths(follower);
         intake = new Intake (hardwareMap);
         shooter = new Shooter(hardwareMap);
+        turret = new Turret(hardwareMap);
+        turret.goNeutral();
         shooter.lowerBarrier();
         setUp();
     }
@@ -59,6 +63,7 @@ public class BlueFar extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
+        turret.goNeutral();
         shooter.spinHighRPM();
     }
     private void setUp() {

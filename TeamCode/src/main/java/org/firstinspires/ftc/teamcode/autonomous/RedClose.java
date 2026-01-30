@@ -51,6 +51,7 @@ public class RedClose extends OpMode {
     private static double angle = 41.8;
     private boolean isShooting = false;
     private boolean keepLow = true;
+    private Turret turret;
 //    private Writer writer;
 
     @Override
@@ -60,7 +61,9 @@ public class RedClose extends OpMode {
         paths = new Paths(follower);
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
+        turret = new Turret(hardwareMap);
         shooter.lowerBarrier();
+        turret.goNeutral();
     }
     public void start(){
         timer.reset();
@@ -71,6 +74,7 @@ public class RedClose extends OpMode {
     public void loop(){
         follower.update();
         fsm.update();
+        turret.goNeutral();
         if(keepLow){
             shooter.spinLowRPM();
         }else {
