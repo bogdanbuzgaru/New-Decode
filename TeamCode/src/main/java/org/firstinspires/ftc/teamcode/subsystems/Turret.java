@@ -20,13 +20,13 @@ public class Turret {
         goNeutral();
     }
     private boolean isInRangeRed(){
-        return heading <= 90 && heading >=0;
+        return heading <= 120 && heading >= - 30;
     }
     private boolean isInRangeBlue(){
-        return heading >= 90 && heading <= 180;
+        return heading >= 60 || heading <= -150;
     }
     public void rotateRed(double dx, double dy){
-        angle = Math.toDegrees(Math.atan((144 - dy) / (144 - dx)));
+        angle = Math.toDegrees(Math.atan((134 - dy) / (144 - dx)));
         alpha = angle - heading;
         if(follow && isInRangeRed()) {
             if (alpha > 0) {

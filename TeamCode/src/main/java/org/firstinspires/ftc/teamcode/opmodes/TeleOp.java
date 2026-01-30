@@ -53,6 +53,10 @@ public class TeleOp extends OpMode{
             turret.goNeutral();
         }else if (gamepad2.triangleWasPressed()){
             turret.follow();
+        }else if (gamepad2.circleWasPressed()){
+            follower.setPose(new Pose(0.000, 0.000, Math.toRadians(0)));
+        }else if (gamepad2.squareWasPressed()){
+            follower.setPose(new Pose(144.000, 0.000, Math.toRadians(180)));
         }
         telemetry.addData("Heading", Math.toDegrees(pose.getHeading()));
         telemetry.addData("X", pose.getX());
