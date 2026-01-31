@@ -63,7 +63,7 @@ public class Shooter {
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
         }else if(gamepad.crossWasPressed()){
-            hood.lower();
+            hood.fullLow();
             ticksPerSecShoot = 1130;
             leftShooter.setVelocity(ticksPerSecShoot);
             rightShooter.setVelocity(ticksPerSecShoot);
@@ -107,13 +107,13 @@ public class Shooter {
         rightShooter.setVelocity(ticksPerSecShoot);
     }
     public void spinNormalRPM(){
-        ticksPerSecShoot = 1450;
+        ticksPerSecShoot = 1530;
         hood.semiLift();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
     }
     public void spinLowRPM(){
-        ticksPerSecShoot = 1020;
+        ticksPerSecShoot = 1176;
         hood.lower();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);

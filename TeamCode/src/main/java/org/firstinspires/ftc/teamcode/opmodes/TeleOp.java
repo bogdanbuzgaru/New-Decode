@@ -36,8 +36,11 @@ public class TeleOp extends OpMode{
         follower.update();
         pose = follower.getPose();
         turret.setHeading(Math.toDegrees(pose.getHeading()));
-        turret.rotateRed(pose.getX(), pose.getY());
-//        turret.rotateBlue(pose.getX(), pose.getY());      //TODO change for each alliance
+        if(turret.getRed())
+            turret.rotateRed(pose.getX(), pose.getY());
+        else
+            turret.rotateBlue(pose.getX(), pose.getY());      //TODO change for each alliance
+        turret.toggle(gamepad2);
         movement.movementLoop(gamepad1);
         intake.update();
         intake.take(gamepad1);

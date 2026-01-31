@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -10,7 +11,7 @@ public class Turret {
     private double angle = 0;
     public double alpha = 0;
     private boolean follow;
-    private boolean isRed = false;
+    private boolean red = false;
     private int lower = 5;
     private double redAuto = 74.8;
     private double blueAuto = 115.2;
@@ -23,14 +24,24 @@ public class Turret {
         turretServo2 = hardwareMap.get(Servo.class, "turretServo2");
         goNeutral();
     }
+    public boolean getRed(){
+        return red;
+    }
     private boolean isInRangeRed(){
         return heading <= 120 && heading >= - 30;
     }
     private boolean isInRangeBlue(){
         return heading >= 60 || heading <= -150;
     }
+    public void toggle(Gamepad gamepad){
+        if(gamepad.dpadRightWasPressed()){
+            red = true;
+        } else if (gamepad.dpadLeftWasPressed()) {
+            red = false;
+        }
+    }
     public void rotateRed(double dx, double dy){
-        angle = Math.toDegrees(Math.atan((137 - dy) / (144 - dx)));
+        angle = Math.toDegrees(Math.atan((149 - dy) / (144 - dx)));
         alpha = angle - heading;
         if(follow && isInRangeRed()) {
             if (alpha > 0) {
@@ -51,9 +62,9 @@ public class Turret {
         turretServo2.setPosition(0.5 + 0.5 * redAuto / 102.8571428571429);
     }
     public void rotateBlue(double dx, double dy){
-        angle = Math.toDegrees(Math.atan((137 - dy) / dx )) + 90;
+        angle = Math.toDegrees(Math.atan((144 - dy) / dx )) + 90;
         alpha = angle - heading;
-        if(follow && isInRangeRed()) {
+        if(follow && isInRangeBlue()) {
             if (alpha > 0) {
                 turretServo1.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
                 turretServo2.setPosition(0.5 - 0.5 * alpha / 102.8571428571429);
