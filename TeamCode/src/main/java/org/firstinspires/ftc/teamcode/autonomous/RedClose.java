@@ -200,7 +200,7 @@ public class RedClose extends OpMode {
         });
         fsm.onStateUpdate(AutoState.PATH6, () -> {
             if (!follower.isBusy()) {
-                return AutoState.PATH7;
+                return AutoState.PATH8;
             }else{
                 return null;
             }
@@ -433,17 +433,17 @@ public class RedClose extends OpMode {
 
             Path8 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(135.000, 76.000),
+                                    new Pose(124.000, 60.000),
 
                                     new Pose(95.000, 84.000)
                             )
-                    ).setLinearHeadingInterpolation(Math.toRadians(270), Math.toRadians(0))
+                    ).setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
 
                     .build();
 
             Path9 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(95.000, 84.000),
+                                    new Pose(124.000, 60.000),
 
                                     new Pose(95.000, 36.000)
                             )

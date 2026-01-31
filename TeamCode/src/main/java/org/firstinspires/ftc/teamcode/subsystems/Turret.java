@@ -13,7 +13,7 @@ public class Turret {
     private boolean follow;
     private boolean red = false;
     private int lower = 5;
-    private double redAuto = 74.8;
+    private double redAuto = 52.8;
     private double blueAuto = 115.2;
     public void setHeading(double heading) {
         this.heading = heading;
@@ -30,7 +30,7 @@ public class Turret {
     private boolean isInRangeRed(){
         return heading <= 120 && heading >= - 30;
     }
-    private boolean isInRangeBlue(){
+    private boolean isInRangeBlue() {
         return heading >= 60 || heading <= -150;
     }
     public void toggle(Gamepad gamepad){
@@ -62,7 +62,7 @@ public class Turret {
         turretServo2.setPosition(0.5 + 0.5 * redAuto / 102.8571428571429);
     }
     public void rotateBlue(double dx, double dy){
-        angle = Math.toDegrees(Math.atan((144 - dy) / dx )) + 90;
+        angle = Math.toDegrees(Math.atan((149 - dy) / dx )) + 90;
         alpha = angle - heading;
         if(follow && isInRangeBlue()) {
             if (alpha > 0) {

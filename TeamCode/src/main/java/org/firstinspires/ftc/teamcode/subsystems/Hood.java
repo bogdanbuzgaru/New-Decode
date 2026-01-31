@@ -24,6 +24,9 @@ public class Hood {
     public void update(){
         pos = hood.getPosition();
     }
+    public void blueLift(){
+        hood.setPosition(0.49);
+    }
     public void fullLow(){
         hood.setPosition(1);
     }

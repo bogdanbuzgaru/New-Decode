@@ -44,9 +44,9 @@ public class BlueClose extends OpMode {
     private Intake intake;
     private Shooter shooter;
     private boolean isShooting = false;;
-    private static double angle = 140.8;
-    private Turret turret;
+    private static double angle = 148.2;
     private boolean keepLow = true;
+    private Turret turret;
 
     @Override
     public void init(){
@@ -56,9 +56,9 @@ public class BlueClose extends OpMode {
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
         turret = new Turret(hardwareMap);
+        turret.goNeutral();
         setUp();
         shooter.lowerBarrier();
-        turret.goNeutral();
     }
     public void start(){
         timer.reset();
@@ -73,7 +73,7 @@ public class BlueClose extends OpMode {
         if(keepLow){
             shooter.spinLowRPM();
         }else {
-            shooter.spinNormalRPM();
+            shooter.spinBlue();
         }
 //        if(timer.milliseconds() >29889){
 //            try {
@@ -408,7 +408,7 @@ public class BlueClose extends OpMode {
                             new BezierLine(
                                     new Pose(20.000, 60.000),
 
-                                    new Pose(17.000, 72.000)
+                                    new Pose(12.000, 72.000)
                             )
                     ).setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270))
 
@@ -416,7 +416,7 @@ public class BlueClose extends OpMode {
 
             Path8 = follower.pathBuilder().addPath(
                             new BezierLine(
-                                    new Pose(17.000, 72.000),
+                                    new Pose(12.000, 72.000),
 
                                     new Pose(59.000, 84.000)
                             )

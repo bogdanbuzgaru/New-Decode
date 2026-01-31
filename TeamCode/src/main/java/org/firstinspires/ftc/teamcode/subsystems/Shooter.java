@@ -4,9 +4,11 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Shooter {
@@ -112,6 +114,12 @@ public class Shooter {
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
     }
+    public void spinBlue(){
+        ticksPerSecShoot = 1490;
+        hood.blueLift();
+        leftShooter.setVelocity(ticksPerSecShoot);
+        rightShooter.setVelocity(ticksPerSecShoot);
+    }
     public void spinLowRPM(){
         ticksPerSecShoot = 1176;
         hood.lower();
@@ -139,13 +147,14 @@ public class Shooter {
 
         double p_output = p.calculate(velocity, ticksPerSecShoot);
         double ff_output = ff.calculate(ticksPerSecShoot);
-
-        if(ticksPerSecShoot != 0){
-            rightShooter.setPower((p_output + ff_output) * (nominalVoltage / voltage));
-            leftShooter.setPower((p_output + ff_output) * (nominalVoltage / voltage));
-        }else {
-            rightShooter.setPower(0);
-            leftShooter.setPower(0);
-        }
+        leftShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,new PIDFCoefficients(kp, 0, 0, ff_output));
+        leftShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,new PIDFCoefficients(kp, 0, 0, ff_output));
+//        if(ticksPerSecShoot != 0){
+//            rightShooter.setPower((p_output + ff_output) * (nominalVoltage / voltage));
+//            leftShooter.setPower((p_output + ff_output) * (nominalVoltage / voltage));
+//        }else {
+//            rightShooter.setPower(0);
+//            leftShooter.setPower(0);
+//        }
     }
 }
