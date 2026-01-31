@@ -111,7 +111,6 @@ public class RedFar extends OpMode {
         fsm.onStateEnter(AutoState.PATH3, () ->{
             follower.followPath(paths.Path3);
             intake.autoTake();
-            angle -= 1;
             return null;
         });
 

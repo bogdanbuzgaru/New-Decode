@@ -10,8 +10,10 @@ public class Turret {
     private double angle = 0;
     public double alpha = 0;
     private boolean follow;
-    private boolean isUpper = false;
+    private boolean isRed = false;
     private int lower = 5;
+    private double redAuto = 74.8;
+    private double blueAuto = 115.2;
     public void setHeading(double heading) {
         this.heading = heading;
     }
@@ -39,6 +41,14 @@ public class Turret {
                 turretServo2.setPosition(0.5 + 0.5 * Math.abs(alpha) / 102.8571428571429);
             }
         }
+    }
+    public void autoRed(){
+        turretServo1.setPosition(0.5 - 0.5 * redAuto / 102.8571428571429);
+        turretServo2.setPosition(0.5 - 0.5 * redAuto / 102.8571428571429);
+    }
+    public void autoBlue(){
+        turretServo1.setPosition(0.5 + 0.5 * redAuto / 102.8571428571429);
+        turretServo2.setPosition(0.5 + 0.5 * redAuto / 102.8571428571429);
     }
     public void rotateBlue(double dx, double dy){
         angle = Math.toDegrees(Math.atan((137 - dy) / dx )) + 90;

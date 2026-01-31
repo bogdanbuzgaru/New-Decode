@@ -13,7 +13,7 @@ public class Hood {
         hood.setPosition(0.15);
     }
     public void semiLift(){
-        hood.setPosition(0.46);
+        hood.setPosition(0.53);
     }
     public void lower(){
         hood.setPosition(1);

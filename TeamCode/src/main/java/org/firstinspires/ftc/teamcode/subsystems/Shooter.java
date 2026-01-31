@@ -26,7 +26,7 @@ public class Shooter {
     private int ticksPerSecShoot = 1130;
     private Lift lift;
     private double voltage;
-    public static  double ks = 0.23, kv = 0.000406341, ka = 0.1, kp = 0.007, velocity, nominalVoltage = 10.7;
+    public static  double ks = 0.1, kv = 0.0003555641, ka = 0.01, kp = 0.015, velocity, nominalVoltage = 10.7;
     private boolean increase = false;
 //    SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
     PIDController p = new PIDController(kp, 0, 0);
@@ -113,7 +113,7 @@ public class Shooter {
         rightShooter.setVelocity(ticksPerSecShoot);
     }
     public void spinLowRPM(){
-        ticksPerSecShoot = 960;
+        ticksPerSecShoot = 1020;
         hood.lower();
         leftShooter.setVelocity(ticksPerSecShoot);
         rightShooter.setVelocity(ticksPerSecShoot);
@@ -131,7 +131,6 @@ public class Shooter {
 
     public void update() {
         voltage = hardwareMap.voltageSensor.iterator().next().getVoltage();
-        nominalVoltage = voltage - 1.25;
 
         SimpleMotorFeedforward ff = new SimpleMotorFeedforward(ks, kv, ka);
         p.setPID(kp, 0, 0);
