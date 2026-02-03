@@ -31,7 +31,7 @@ public class Turret {
         return heading <= 120 && heading >= - 30;
     }
     private boolean isInRangeBlue() {
-        return heading >= 60 || heading <= -150;
+        return heading >= 60;
     }
     public void toggle(Gamepad gamepad){
         if(gamepad.dpadRightWasPressed()){
